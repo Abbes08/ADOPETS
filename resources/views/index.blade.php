@@ -49,7 +49,7 @@
 		</div>
 		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-    <a class="navbar-brand" href="{{ route('index') }}"><span class="flaticon-pawprint-1 mr-2"></span>Pet sitting</a>
+    <a class="navbar-brand" href="{{ route('index') }}"><span class="flaticon-pawprint-1 mr-2"></span>Adopets</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fa fa-bars"></span> Menu
     </button>
@@ -57,17 +57,13 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item active"><a href="{{ route('index') }}" class="nav-link">Home</a></li>
         <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Veterinarian</a></li>
         <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Services</a></li>
-        <li class="nav-item"><a href="{{ route('gallery') }}" class="nav-link">Gallery</a></li>
-        <li class="nav-item"><a href="{{ route('pricing') }}" class="nav-link">Pricing</a></li>
-        <li class="nav-item"><a href="{{ route('blog') }}" class="nav-link">Blog</a></li>
         <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contact</a></li>
 
         @auth
             <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
         @else
-            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
+            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
             @if (Route::has('register'))
                 <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
             @endif

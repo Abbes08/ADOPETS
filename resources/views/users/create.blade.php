@@ -23,8 +23,8 @@
                 <label for="gender">Sexo</label>
                 <select class="form-control" id="gender" name="gender" required>
                     <option value="">Selecciona</option>
-                    <option value="male">Masculino</option>
-                    <option value="female">Femenino</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
                     <option value="other">Otro</option>
                 </select>
             </div>

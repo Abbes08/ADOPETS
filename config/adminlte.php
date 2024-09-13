@@ -380,6 +380,11 @@ return [
                     'url' => 'users',
                     'icon' => 'fas fa-user-cog',
                 ],
+                [
+                    'text' => 'Gestionar Adopciones Exitosas',
+                    'url' => 'exitosas',
+                    'icon' => 'fas fa-paw', // Icono para representar adopciones
+                ],
             ],
         ],
 

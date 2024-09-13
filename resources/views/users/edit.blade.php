@@ -22,8 +22,8 @@
                 <label for="gender">Sexo</label>
                 <select class="form-control" id="gender" name="gender" required>
                     <option value="">Selecciona</option>
-                    <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Masculino</option>
-                    <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Femenino</option>
+                    <option value="Masculino" {{ $user->gender == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+                    <option value="Femenino" {{ $user->gender == 'Femenino' ? 'selected' : '' }}>Femenino</option>
                     <option value="other" {{ $user->gender == 'other' ? 'selected' : '' }}>Otro</option>
                 </select>
             </div>

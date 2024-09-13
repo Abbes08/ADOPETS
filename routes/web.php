@@ -3,16 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\exitosasController;
+
 
 Route::get('/', function () {
     return view('index');
@@ -61,4 +53,14 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+//CRUD ADOPEXITOSAS
+Route::resource('exitosas', exitosasController::class);
+Route::get('/exitosas', [exitosasController::class, 'index'])->name('exitosas.index');
+Route::get('/exitosas/create', [exitosasController::class, 'create'])->name('exitosas.create');
+Route::post('/exitosas', [exitosasController::class, 'store'])->name('exitosas.store');
+Route::get('/exitosas/{id}/edit', [exitosasController::class, 'edit'])->name('exitosas.edit');
+Route::put('/exitosas/{id}', [exitosasController::class, 'update'])->name('exitosas.update');
+Route::delete('/exitosas/{id}', [exitosasController::class, 'destroy'])->name('exitosas.destroy');
+
 
