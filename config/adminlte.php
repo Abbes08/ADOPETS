@@ -387,6 +387,17 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Publicidad',
+            'icon' => 'fas fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar',
+                    'url' => 'publicidad',
+                    'icon' => 'fas fa-user-cog',
+                ],
+            ],
+        ],
 
         ['header' => 'labels'],
         [
