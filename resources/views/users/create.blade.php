@@ -1,3 +1,4 @@
+
 @extends('adminlte::page')
 
 @section('title', 'Usuarios')
@@ -20,12 +21,12 @@
                 <input type="text" class="form-control" id="surname" name="surname" required>
             </div>
             <div class="form-group">
-                <label for="gender">Sexo</label>
+                <label for="gender">Genero</label>
                 <select class="form-control" id="gender" name="gender" required>
                     <option value="">Selecciona</option>
-                    <option value="male">Masculino</option>
-                    <option value="female">Femenino</option>
-                    <option value="other">Otro</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Otro</option>
                 </select>
             </div>
             <div class="form-group">

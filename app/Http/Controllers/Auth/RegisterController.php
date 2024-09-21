@@ -19,7 +19,7 @@ class RegisterController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
-            'gender' => 'required|string|in:male,female,other',
+            'gender' => 'required|string|in:masculino,femenino,otro',
             'phone' => 'required|string|max:15',
             'address' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',

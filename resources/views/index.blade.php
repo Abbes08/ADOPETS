@@ -30,8 +30,8 @@
 				<div class="row">
 					<div class="col-md-6 d-flex align-items-center">
 						<p class="mb-0 phone pl-md-2">
-							<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a> 
-							<a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+							<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +506 88997744</a> 
+							<a href="#"><span class="fa fa-paper-plane mr-1"></span> adoptest@gmail.com</a>
 						</p>
 					</div>
 					<div class="col-md-6 d-flex justify-content-md-end">
@@ -49,29 +49,31 @@
 		</div>
 		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-    <a class="navbar-brand" href="{{ route('index') }}"><span class="flaticon-pawprint-1 mr-2"></span>Pet sitting</a>
+    <a class="navbar-brand" href="{{ route('index') }}"><span class="flaticon-pawprint-1 mr-2"></span>Adopets</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fa fa-bars"></span> Menu
     </button>
 	<div class="collapse navbar-collapse" id="ftco-nav">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item active"><a href="{{ route('index') }}" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Veterinarian</a></li>
-        <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Services</a></li>
-        <li class="nav-item"><a href="{{ route('gallery') }}" class="nav-link">Gallery</a></li>
-        <li class="nav-item"><a href="{{ route('pricing') }}" class="nav-link">Pricing</a></li>
-        <li class="nav-item"><a href="{{ route('blog') }}" class="nav-link">Blog</a></li>
-        <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contact</a></li>
+        <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">Preguntas Frecuentes</a></li>
+        <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Publicidad</a></li>
+        <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Servicios</a></li>
+        <li class="nav-item"><a href="{{ route('gallery') }}" class="nav-link">Mascotas</a></li>
+		<li class="nav-item "><a href="{{ route('blog') }}" class="nav-link">Adopciones Exitosas</a></li>
+        <li class="nav-item "><a href="{{ route('contact') }}" class="nav-link">Contactanos</a></li></li>
+		@auth
+    <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Admin</a></li>
+@endauth
 
-        @auth
-            <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
-        @else
-            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
-            @if (Route::has('register'))
-                <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
-            @endif
-        @endauth
+@guest
+    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+    @if (Route::has('register'))
+        <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Registrate</a></li>
+    @endif
+@endguest
+
+
     </ul>
 </div>
 
@@ -84,8 +86,8 @@
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-11 ftco-animate text-center">
-                <h1 class="mb-4">Highest Quality Care For Pets You'll Love</h1>
-                <p><a href="#" class="btn btn-primary mr-md-4 py-3 px-4">Learn more <span class="ion-ios-arrow-forward"></span></a></p>
+                <h1 class="mb-4">La mejor manera para adoptar se encuentra aquí</h1>
+                <p><a href="#" class="btn btn-primary mr-md-4 py-3 px-4">Leer más <span class="ion-ios-arrow-forward"></span></a></p>
             </div>
         </div>
     </div>
@@ -99,8 +101,8 @@
             		<span class="flaticon-blind"></span>
               </div>
               <div class="media-body">
-                <h3 class="heading">Dog Walking</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right.</p>
+                <h3 class="heading">Adopciones</h3>
+                <p> Si deseas adoptar una mascota, ofrecemos una amplia variedad de animales que necesitan un hogar lleno de amor. Cada uno de ellos viene con información detallada para ayudarte a tomar la mejor decisión.</p>
                 <a href="#" class="btn-custom d-flex align-items-center justify-content-center"><span class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
               </div>
             </div>      
@@ -111,8 +113,8 @@
             		<span class="flaticon-dog-eating"></span>
               </div>
               <div class="media-body">
-                <h3 class="heading">Pet Daycare</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right.</p>
+                <h3 class="heading">Dar en adopción</h3>
+                <p>Te proporcionamos un formulario sencillo para compartir los detalles de tu mascota. Nos aseguramos de que sea visible para quienes buscan adoptar, ayudándote a encontrar un buen hogar para ella.</p>
                 <a href="#" class="btn-custom d-flex align-items-center justify-content-center"><span class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
               </div>
             </div>    
@@ -123,8 +125,8 @@
             		<span class="flaticon-grooming"></span>
               </div>
               <div class="media-body">
-                <h3 class="heading">Pet Grooming</h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right.</p>
+                <h3 class="heading">Publicidad</h3>
+                <p>Aquí, clínicas veterinarias y doctores especializados pueden promover sus servicios, brindando la mejor atención para las mascotas. Si eres veterinario, este espacio es ideal para conectar con nuevos clientes y ofrecer tus servicios de cuidado animal.</p>
                 <a href="#" class="btn-custom d-flex align-items-center justify-content-center"><span class="fa fa-chevron-right"></span><i class="sr-only">Read more</i></a>
               </div>
             </div>      
@@ -179,52 +181,7 @@
     	</div>
     </section>
 
-    <section class="ftco-counter" id="section-counter">
-    	<div class="container">
-				<div class="row">
-          <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-            <div class="block-18 text-center">
-              <div class="text">
-                <strong class="number" data-number="50">0</strong>
-              </div>
-              <div class="text">
-              	<span>Customer</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-            <div class="block-18 text-center">
-              <div class="text">
-                <strong class="number" data-number="8500">0</strong>
-              </div>
-              <div class="text">
-              	<span>Professionals</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-            <div class="block-18 text-center">
-              <div class="text">
-                <strong class="number" data-number="20">0</strong>
-              </div>
-              <div class="text">
-              	<span>Products</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-            <div class="block-18 text-center">
-              <div class="text">
-                <strong class="number" data-number="50">0</strong>
-              </div>
-              <div class="text">
-              	<span>Pets Hosted</span>
-              </div>
-            </div>
-          </div>
-        </div>
-    	</div>
-    </section>
+   
 
     <section class="ftco-section bg-light ftco-faqs">
     	<div class="container">
@@ -426,71 +383,7 @@
       </div>
     </section>
 
-    <section class="ftco-section bg-light">
-    	<div class="container">
-    		<div class="row justify-content-center pb-5 mb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-            <h2>Affordable Packages</h2>
-          </div>
-        </div>
-    		<div class="row">
-    			<div class="col-md-4 ftco-animate">
-	          <div class="block-7">
-	          	<div class="img" style="background-image: url(images/pricing-1.jpg);"></div>
-	            <div class="text-center p-4">
-	            	<span class="excerpt d-block">Personal</span>
-	            	<span class="price"><sup>$</sup> <span class="number">49</span> <sub>/mos</sub></span>
-	            
-		            <ul class="pricing-text mb-5">
-		              <li><span class="fa fa-check mr-2"></span>5 Dog Walk</li>
-		              <li><span class="fa fa-check mr-2"></span>3 Vet Visit</li>
-		              <li><span class="fa fa-check mr-2"></span>3 Pet Spa</li>
-		              <li><span class="fa fa-check mr-2"></span>Free Supports</li>
-		            </ul>
-
-	            	<a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col-md-4 ftco-animate">
-	          <div class="block-7">
-	          	<div class="img" style="background-image: url(images/pricing-2.jpg);"></div>
-	            <div class="text-center p-4">
-	            	<span class="excerpt d-block">Business</span>
-		            <span class="price"><sup>$</sup> <span class="number">79</span> <sub>/mos</sub></span>
-		            
-		            <ul class="pricing-text mb-5">
-		              <li><span class="fa fa-check mr-2"></span>5 Dog Walk</li>
-		              <li><span class="fa fa-check mr-2"></span>3 Vet Visit</li>
-		              <li><span class="fa fa-check mr-2"></span>3 Pet Spa</li>
-		              <li><span class="fa fa-check mr-2"></span>Free Supports</li>
-		            </ul>
-
-		            <a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col-md-4 ftco-animate">
-	          <div class="block-7">
-	          	<div class="img" style="background-image: url(images/pricing-3.jpg);"></div>
-	            <div class="text-center p-4">
-	            	<span class="excerpt d-block">Ultimate</span>
-		            <span class="price"><sup>$</sup> <span class="number">109</span> <sub>/mos</sub></span>
-		            
-		            <ul class="pricing-text mb-5">
-		              <li><span class="fa fa-check mr-2"></span>5 Dog Walk</li>
-		              <li><span class="fa fa-check mr-2"></span>3 Vet Visit</li>
-		              <li><span class="fa fa-check mr-2"></span>3 Pet Spa</li>
-		              <li><span class="fa fa-check mr-2"></span>Free Supports</li>
-		            </ul>
-
-		            <a href="#" class="btn btn-primary d-block px-2 py-3">Get Started</a>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-    	</div>
-    </section>
+   
 		
 		<section class="ftco-section">
 			<div class="container">

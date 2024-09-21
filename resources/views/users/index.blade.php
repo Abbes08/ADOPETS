@@ -14,10 +14,10 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
+                
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Sexo</th>
+                    <th>Genero</th>
                     <th>Teléfono</th>
                     <th>Dirección</th>
                     <th>Correo Electrónico</th>
@@ -27,7 +27,7 @@
             <tbody>
                 @foreach ($users as $user)
                     <tr>
-                        <td>{{ $user->id }}</td>
+                        
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->surname }}</td>
                         <td>{{ $user->gender }}</td>

@@ -24,13 +24,40 @@
   </head>
   <body>
 
-    <div class="wrap">
+
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pet Sitting - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+    <link rel="stylesheet" href="css/animate.css">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+  <div class="wrap">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 d-flex align-items-center">
 						<p class="mb-0 phone pl-md-2">
-							<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a> 
-							<a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+							<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +506 88997744</a> 
+							<a href="#"><span class="fa fa-paper-plane mr-1"></span> adoptest@gmail.com</a>
 						</p>
 					</div>
 					<div class="col-md-6 d-flex justify-content-md-end">
@@ -46,34 +73,39 @@
 				</div>
 			</div>
 		</div>
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}"><span class="flaticon-pawprint-1 mr-2"></span>Pet sitting</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fa fa-bars"></span> Menu
-        </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="{{ url('/about') }}" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="{{ url('/vet') }}" class="nav-link">Veterinarian</a></li>
-                <li class="nav-item"><a href="{{ url('/services') }}" class="nav-link">Services</a></li>
-                <li class="nav-item"><a href="{{ url('/gallery') }}" class="nav-link">Gallery</a></li>
-                <li class="nav-item"><a href="{{ url('/pricing') }}" class="nav-link">Pricing</a></li>
-                <li class="nav-item"><a href="{{ route('blog') }}" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="{{ url('/contact') }}" class="nav-link">Contact</a></li>
-                
-        @auth
-            <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
-        @else
-            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
-            @if (Route::has('register'))
-                <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
-            @endif
-        @endauth
-            </ul>
-        </div>
-    </div>
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+    <a class="navbar-brand" href="{{ route('index') }}"><span class="flaticon-pawprint-1 mr-2"></span>Adopets</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="fa fa-bars"></span> Menu
+    </button>
+	<div class="collapse navbar-collapse" id="ftco-nav">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item "><a href="{{ route('index') }}" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">Preguntas Frecuentes</a></li>
+        <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Publicidad</a></li>
+        <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Servicios</a></li>
+        <li class="nav-item "><a href="{{ route('gallery') }}" class="nav-link">Mascotas</a></li>
+        
+        <li class="nav-item active"><a href="{{ route('blog') }}" class="nav-link">Adopciones Exitosas</a></li>
+        <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contactanos</a></li></li>
+		@auth
+    <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
+@endauth
+
+@guest
+    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+    @if (Route::has('register'))
+        <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Registrate</a></li>
+    @endif
+@endguest
+
+
+    </ul>
+</div>
+
+
+</div>
 </nav>
 
 <section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('images/bg_2.jpg') }}');" data-stellar-background-ratio="0.5">

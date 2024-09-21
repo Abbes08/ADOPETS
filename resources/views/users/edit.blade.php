@@ -19,12 +19,12 @@
                 <input type="text" class="form-control" id="surname" name="surname" value="{{ $user->surname }}" required>
             </div>
             <div class="form-group">
-                <label for="gender">Sexo</label>
+                <label for="gender">Genero</label>
                 <select class="form-control" id="gender" name="gender" required>
                     <option value="">Selecciona</option>
-                    <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Masculino</option>
-                    <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Femenino</option>
-                    <option value="other" {{ $user->gender == 'other' ? 'selected' : '' }}>Otro</option>
+                    <option value="Masculino" {{ $user->gender == 'masculino' ? 'selected' : '' }}>Masculino</option>
+                    <option value="Femenino" {{ $user->gender == 'femenino' ? 'selected' : '' }}>Femenino</option>
+                    <option value="Otro" {{ $user->gender == 'otro' ? 'selected' : '' }}>Otro</option>
                 </select>
             </div>
             <div class="form-group">

@@ -25,13 +25,13 @@
   </head>
   <body>
 
-    <div class="wrap">
+  <div class="wrap">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 d-flex align-items-center">
 						<p class="mb-0 phone pl-md-2">
-							<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a> 
-							<a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+							<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +506 88997744</a> 
+							<a href="#"><span class="fa fa-paper-plane mr-1"></span> adoptest@gmail.com</a>
 						</p>
 					</div>
 					<div class="col-md-6 d-flex justify-content-md-end">
@@ -48,32 +48,37 @@
 			</div>
 		</div>
 		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-    <a class="navbar-brand" href="{{ route('index') }}"><span class="flaticon-pawprint-1 mr-2"></span>Pet sitting</a>
+	    <div class="container">
+    <a class="navbar-brand" href="{{ route('index') }}"><span class="flaticon-pawprint-1 mr-2"></span>Adopets</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fa fa-bars"></span> Menu
     </button>
-    <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="{{ route('index') }}" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Veterinarian</a></li>
-            <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Services</a></li>
-            <li class="nav-item active"><a href="{{ route('gallery') }}" class="nav-link">Gallery</a></li>
-            <li class="nav-item"><a href="{{ route('pricing') }}" class="nav-link">Pricing</a></li>
-            <li class="nav-item"><a href="{{ route('blog') }}" class="nav-link">Blog</a></li>
-            <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contact</a></li>
-            
-        @auth
-            <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
-        @else
-            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
-            @if (Route::has('register'))
-                <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
-            @endif
-        @endauth
-        </ul>
-    </div>
+	<div class="collapse navbar-collapse" id="ftco-nav">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item "><a href="{{ route('index') }}" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">Preguntas Frecuentes</a></li>
+        <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Publicidad</a></li>
+        <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Servicios</a></li>
+        <li class="nav-item active"><a href="{{ route('gallery') }}" class="nav-link">Mascotas</a></li>
+        
+        <li class="nav-item "><a href="{{ route('blog') }}" class="nav-link">Adopciones Exitosas</a></li>
+        <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contact</a></li></li>
+		@auth
+    <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
+@endauth
+
+@guest
+    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+    @if (Route::has('register'))
+        <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Registrate</a></li>
+    @endif
+@endguest
+
+
+    </ul>
+</div>
+
+
 </div>
 </nav>
 <!-- END nav -->
