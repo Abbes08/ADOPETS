@@ -367,6 +367,7 @@ return [
                 ],
             ],
         ],
+        
         [
             'text' => 'Usuarios',
             'icon' => 'fas fa-users',
@@ -376,36 +377,70 @@ return [
                     'url' => 'users',
                     'icon' => 'fas fa-user-cog',
                 ],
+                
+            ],
+           
+        ],
+ 
+        [
+            'text' => 'Adopción exitosa',
+            'icon' => 'fas fa-paw',
+            'submenu' => [
                 [
                     'text' => 'Gestionar Adopciones Exitosas',
                     'url' => 'exitosas',
                     'icon' => 'fas fa-paw', // Icono para representar adopciones
+                
                 ],
+                
             ],
+           
         ],
         [
-            'text' => 'Publicidad',
-            'icon' => 'fas fa-users',
+            'text' => 'Servicios',
+            'icon' => 'fas fa-clipboard-list',
             'submenu' => [
                 [
-                    'text' => 'Gestionar',
+                    'text' => 'Gestionar Servicios nuevos',
+                    'url' => 'servicio',
+                    'icon' => 'fas fa-cogs',
+
+                
+                ],
+                
+            ],
+           
+        ],
+        [
+            'text' => 'Mascota',
+            'icon' => 'fas fa-dog',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Mascotas',
+                    'url' => 'mascota',
+                    'icon' => 'fas fa-cat',
+
+                
+                ],
+                
+            ],
+           
+        ],
+        [
+            'text' => 'Publicidades',
+            'icon' => 'fas fa-clipboard-list',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Publicidades',
                     'url' => 'publicidad',
-                    'icon' => 'fas fa-user-cog',
+                    'icon' => 'fas fa-clipboard-list',
+
+                
                 ],
+                
             ],
+           
         ],
-        [
-            'text' => 'Roles',
-            'icon' => 'fas fa-users',
-            'submenu' => [
-                [
-                    'text' => 'Gestionar Roles',
-                    'url' => 'roles',
-                    'icon' => 'fas fa-user-cog',
-                ],
-            ],
-        ],
-      
 
         ['header' => 'labels'],
         [

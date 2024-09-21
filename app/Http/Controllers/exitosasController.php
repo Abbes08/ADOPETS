@@ -18,28 +18,30 @@ class exitosasController extends Controller
 
     // Método para almacenar una nueva adopción exitosa
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'idUser' => 'required',
-            'nombre' => 'required|string',
-            'Historia' => 'required|string',
-            'fotomascota' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'Fecha' => 'required|date',
-        ]);
+{
+    $validatedData = $request->validate([
+        'idUser' => 'required',
+        'nombre' => 'required|string',
+        'Historia' => 'required|string',
+        'fotomascota' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        'Fecha' => 'required|date',
+        'estado' => 'required|boolean'
+    ]);
 
-        $imageName = time() . '.' . $request->fotomascota->extension();
-        $request->fotomascota->storeAs('public/fotomascotas', $imageName);
+    $imageName = time() . '.' . $request->fotomascota->extension();
+    $request->fotomascota->storeAs('public/fotomascotas', $imageName);
 
-        $exitosa = new exitosas();
-        $exitosa->idUser = $request->idUser;
-        $exitosa->nombre = $request->nombre;
-        $exitosa->Historia = $request->Historia;
-        $exitosa->fotomascota = $imageName;
-        $exitosa->Fecha = $request->Fecha;
-        $exitosa->save();
+    exitosas::create([
+        'idUser' => $request->idUser,
+        'nombre' => $request->nombre,
+        'Historia' => $request->Historia,
+        'fotomascota' => $imageName,
+        'Fecha' => $request->Fecha,
+        'estado' => $request->estado
+    ]);
 
-        return redirect()->route('exitosas.index')->with('success', 'Adopción exitosa creada correctamente.');
-    }
+    return redirect()->route('exitosas.index')->with('success', 'Adopción exitosa creada correctamente.');
+}
 
     // Método para mostrar el formulario de edición
     public function edit($id)
@@ -58,15 +60,16 @@ class exitosasController extends Controller
             'Historia' => 'required|string',
             'fotomascota' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'Fecha' => 'required|date',
+            'estado' => 'required|boolean'
         ]);
-
+    
         $exitosa = exitosas::findOrFail($id);
         $exitosa->idUser = $request->idUser;
         $exitosa->nombre = $request->nombre;
         $exitosa->Historia = $request->Historia;
-
+        $exitosa->estado = $request->estado;
+    
         if ($request->hasFile('fotomascota')) {
-            // Si se sube una nueva imagen, eliminar la anterior y guardar la nueva
             if ($exitosa->fotomascota) {
                 Storage::delete('public/fotomascotas/' . $exitosa->fotomascota);
             }
@@ -74,13 +77,13 @@ class exitosasController extends Controller
             $request->fotomascota->storeAs('public/fotomascotas', $imageName);
             $exitosa->fotomascota = $imageName;
         }
-
+    
         $exitosa->Fecha = $request->Fecha;
         $exitosa->save();
-
+    
         return redirect()->route('exitosas.index')->with('success', 'Adopción exitosa actualizada correctamente.');
     }
-
+    
     // Método para eliminar una adopción exitosa
     public function destroy($id)
     {

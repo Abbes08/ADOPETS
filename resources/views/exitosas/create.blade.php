@@ -46,6 +46,13 @@
                     <label for="Fecha">Fecha de la adopción:</label>
                     <input type="date" name="Fecha" class="form-control" required>
                 </div>
+                        <div class="form-group">
+            <label for="estado">Estado</label>
+            <select name="estado" id="estado" class="form-control">
+                <option value="1" {{ isset($exitosa) && $exitosa->estado == 1 ? 'selected' : '' }}>Activo</option>
+                <option value="0" {{ isset($exitosa) && $exitosa->estado == 0 ? 'selected' : '' }}>Inactivo</option>
+            </select>
+        </div>
 
                 <!-- Botón para guardar -->
                 <div class="form-group">

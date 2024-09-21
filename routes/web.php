@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\exitosasController;
+use App\Http\Controllers\servicioController;
 use App\Http\Controllers\PublicidadController;
-use App\Http\Controllers\RolController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -95,3 +96,21 @@ Route::put('/roles/{rol}', [RolController::class, 'update'])->name('roles.update
 Route::delete('/roles/{rol}', [RolController::class, 'destroy'])->name('roles.destroy');
 Route::get('/roles/{rol}', [RolController::class, 'show'])->name('roles.show');
 
+//CRUD DE SERVICIOS
+Route::resource('servicio', servicioController::class);
+Route::get('/servicio', [servicioController::class, 'index'])->name('servicio.index');
+Route::get('/servicio/create', [servicioController::class, 'create'])->name('servicio.create');
+Route::post('/servicio', [servicioController::class, 'store'])->name('servicio.store');
+Route::get('/servicio/{id}/edit', [servicioController::class, 'edit'])->name('servicio.edit');
+Route::put('/servicio/{id}', [servicioController::class, 'update'])->name('servicio.update');
+Route::delete('/servicio/{id}', [servicioController::class, 'destroy'])->name('servicio.destroy');
+
+/*CRUD DE MASCOTAS
+Route::resource('mascota', mascotaController::class);
+Route::get('/mascota', [mascotaController::class, 'index'])->name('mascota.index');
+Route::get('/mascota/create', [mascotaController::class, 'create'])->name('mascota.create');
+Route::post('/mascota', [mascotaController::class, 'store'])->name('mascota.store');
+Route::get('/mascota/{id}/edit', [mascotaController::class,'edit'])->name('mascota.edit');
+Route::put('/mascota/{id}', [mascotaController::class, 'update'])->name('mascota.update');
+Route::delete('/mascota/{id}', [mascotaController::class, 'destroy'])->name('mascota.destroy');
+*/

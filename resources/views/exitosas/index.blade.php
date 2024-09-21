@@ -25,6 +25,7 @@
                         <th>Historia</th>
                         <th>Foto de la mascota</th>
                         <th>Fecha</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -37,13 +38,16 @@
                             <img src="{{ Storage::url('fotomascotas/' . $exitosa->fotomascota) }}" alt="Foto de la mascota" width="100">
                         </td>
                         <td>{{ $exitosa->Fecha }}</td>
+                        <td>{{ $exitosa->estado ? 'Activo' : 'Inactivo' }}</td>
                         <td>
                             <a href="{{ route('exitosas.edit', $exitosa->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                            <form action="{{ route('exitosas.destroy', $exitosa->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                            </form>
+                            <form action="{{ route('exitosas.destroy', $exitosa->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro que deseas eliminar esta adopción exitosa?')">
+                    Eliminar
+                </button>
+            </form>
                         </td>
                     </tr>
                     @endforeach
