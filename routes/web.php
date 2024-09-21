@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\exitosasController;
-use App\Http\Controllers\servicioController;
-use App\Http\Controllers\mascotaController;
+
 
 Route::get('/', function () {
     return view('index');
@@ -63,6 +62,18 @@ Route::post('/exitosas', [exitosasController::class, 'store'])->name('exitosas.s
 Route::get('/exitosas/{id}/edit', [exitosasController::class, 'edit'])->name('exitosas.edit');
 Route::put('/exitosas/{id}', [exitosasController::class, 'update'])->name('exitosas.update');
 Route::delete('/exitosas/{id}', [exitosasController::class, 'destroy'])->name('exitosas.destroy');
+
+//CRUD AdopExitosas
+
+
+// Rutas para el CRUD de Publicidad
+Route::get('/publicidad', [PublicidadController::class, 'index'])->name('publicidad.index');
+Route::get('/publicidad/create', [PublicidadController::class, 'create'])->name('publicidad.create');
+Route::post('/publicidad', [PublicidadController::class, 'store'])->name('publicidad.store');
+Route::get('/publicidad/{publicidad}/edit', [PublicidadController::class, 'edit'])->name('publicidad.edit');
+Route::put('/publicidad/{publicidad}', [PublicidadController::class, 'update'])->name('publicidad.update');
+Route::delete('/publicidad/{publicidad}', [PublicidadController::class, 'destroy'])->name('publicidad.destroy');
+Route::get('/publicidad/{publicidad}', [PublicidadController::class, 'show'])->name('publicidad.show');
 
 
 //CRUD DE SERVICIOS
