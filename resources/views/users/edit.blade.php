@@ -22,9 +22,11 @@
                 <label for="gender">Genero</label>
                 <select class="form-control" id="gender" name="gender" required>
                     <option value="">Selecciona</option>
+
                     <option value="Masculino" {{ $user->gender == 'masculino' ? 'selected' : '' }}>Masculino</option>
                     <option value="Femenino" {{ $user->gender == 'femenino' ? 'selected' : '' }}>Femenino</option>
                     <option value="Otro" {{ $user->gender == 'otro' ? 'selected' : '' }}>Otro</option>
+                   
                 </select>
             </div>
             <div class="form-group">

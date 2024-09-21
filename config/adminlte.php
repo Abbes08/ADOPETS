@@ -376,8 +376,36 @@ return [
                     'url' => 'users',
                     'icon' => 'fas fa-user-cog',
                 ],
+                [
+                    'text' => 'Gestionar Adopciones Exitosas',
+                    'url' => 'exitosas',
+                    'icon' => 'fas fa-paw', // Icono para representar adopciones
+                ],
             ],
         ],
+        [
+            'text' => 'Publicidad',
+            'icon' => 'fas fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar',
+                    'url' => 'publicidad',
+                    'icon' => 'fas fa-user-cog',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Roles',
+            'icon' => 'fas fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Roles',
+                    'url' => 'roles',
+                    'icon' => 'fas fa-user-cog',
+                ],
+            ],
+        ],
+      
 
         ['header' => 'labels'],
         [

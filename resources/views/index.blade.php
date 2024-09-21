@@ -56,6 +56,7 @@
 	<div class="collapse navbar-collapse" id="ftco-nav">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item active"><a href="{{ route('index') }}" class="nav-link">Home</a></li>
+<<<<<<< HEAD
         <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">Preguntas Frecuentes</a></li>
         <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Publicidad</a></li>
         <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Servicios</a></li>
@@ -74,6 +75,20 @@
 @endguest
 
 
+=======
+        <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Services</a></li>
+        <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contact</a></li>
+
+        @auth
+            <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
+        @else
+            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+            @if (Route::has('register'))
+                <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
+            @endif
+        @endauth
+>>>>>>> 2ea18acffaa97d8db7299d770439073a86c21fba
     </ul>
 </div>
 
