@@ -398,6 +398,18 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Roles',
+            'icon' => 'fas fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Roles',
+                    'url' => 'roles',
+                    'icon' => 'fas fa-user-cog',
+                ],
+            ],
+        ],
+      
 
         ['header' => 'labels'],
         [

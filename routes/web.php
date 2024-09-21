@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\exitosasController;
 use App\Http\Controllers\PublicidadController;
-
+use App\Http\Controllers\RolController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,8 +74,6 @@ Route::get('/exitosas/{id}/edit', [exitosasController::class, 'edit'])->name('ex
 Route::put('/exitosas/{id}', [exitosasController::class, 'update'])->name('exitosas.update');
 Route::delete('/exitosas/{id}', [exitosasController::class, 'destroy'])->name('exitosas.destroy');
 
-//CRUD AdopExitosas
-
 
 // Rutas para el CRUD de Publicidad
 Route::get('/publicidad', [PublicidadController::class, 'index'])->name('publicidad.index');
@@ -86,4 +84,14 @@ Route::put('/publicidad/{publicidad}', [PublicidadController::class, 'update'])-
 Route::delete('/publicidad/{publicidad}', [PublicidadController::class, 'destroy'])->name('publicidad.destroy');
 Route::get('/publicidad/{publicidad}', [PublicidadController::class, 'show'])->name('publicidad.show');
 
+
+//Rutas para roles
+// Rutas para el CRUD de Roles
+Route::get('/roles', [RolController::class, 'index'])->name('roles.index');
+Route::get('/roles/create', [RolController::class, 'create'])->name('roles.create');
+Route::post('/roles', [RolController::class, 'store'])->name('roles.store');
+Route::get('/roles/{rol}/edit', [RolController::class, 'edit'])->name('roles.edit');
+Route::put('/roles/{rol}', [RolController::class, 'update'])->name('roles.update');
+Route::delete('/roles/{rol}', [RolController::class, 'destroy'])->name('roles.destroy');
+Route::get('/roles/{rol}', [RolController::class, 'show'])->name('roles.show');
 
