@@ -10,11 +10,7 @@ class exitosas extends Model
     use HasFactory;
 
     protected $fillable = [
-        'idUser',
-        'nombre',
-        'Historia',
-        'fotomascota',
-        'Fecha',
+        'idUser', 'nombre', 'Historia', 'fotomascota', 'Fecha', 'estado'
     ];
 
     public function user()

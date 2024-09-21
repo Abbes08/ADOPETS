@@ -430,7 +430,21 @@ return [
             ],
            
         ],
+        [
+            'text' => 'Publicidades',
+            'icon' => 'fas fa-clipboard-list',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Publicidades',
+                    'url' => 'publicidad',
+                    'icon' => 'fas fa-clipboard-list',
 
+                
+                ],
+                
+            ],
+           
+        ],
         ['header' => 'labels'],
         [
             'text' => 'important',
