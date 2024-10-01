@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="row mb-3">
-        <label for="surname" class="col-md-4 col-form-label text-md-end">{{ __('Apellido') }}</label>
+        <label for="surname" class="col-md-4 col-form-label text-md-end">{{ __('Apellidos') }}</label>
         <div class="col-md-6">
             <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required>
             @error('surname')
@@ -40,26 +40,28 @@
         </div>
     </div>
 
+    <div class="row mb-3">
+    <label for="gender" class="col-md-4 col-form-label text-md-end">{{ __('Género') }}</label>
+
+    <div class="col-md-6">
+        <select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender" required>
+            <option value="" disabled selected>Seleccionar</option> <!-- Opción predeterminada -->
+            <option value="Masculino" {{ old('gender') == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+            <option value="Femenino" {{ old('gender') == 'Femenino' ? 'selected' : '' }}>Femenino</option>
+            <option value="Otro" {{ old('gender') == 'Otro' ? 'selected' : '' }}>Otro</option>
+        </select>
+
+        @error('gender')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+
+
                         <div class="row mb-3">
-                            <label for="gender" class="col-md-4 col-form-label text-md-end">{{ __('Genero') }}</label>
-
-                            <div class="col-md-6">
-                                <select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender" required>
-                                    <option value="Masculino" {{ old('gender') == 'masculino' ? 'selected' : '' }}>Masculino</option>
-                                    <option value="Femenino" {{ old('gender') == 'femenino' ? 'selected' : '' }}>Femenino</option>
-                                    <option value="Otro" {{ old('gender') == 'otro' ? 'selected' : '' }}>Otro</option>
-                                </select>
-
-                                @error('gender')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Numero de Telefono') }}</label>
+                            <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Número de Teléfono') }}</label>
 
                             <div class="col-md-6">
                                 <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone">
@@ -87,7 +89,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Correo electronico') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Correo eléctronico') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -135,7 +137,7 @@
                     </form>
                     <div class="text-center mt-4">
                         <p >
-                            ¿Ya tienes una cuenta? <a href="{{ route('login') }}" style="color: #28a745;">Inicia sesion</a>
+                            ¿Ya tienes una cuenta? <a href="{{ route('login') }}" style="color: #28a745;">Inicia sesión</a>
                         </p>
                     </div>
                 </div>

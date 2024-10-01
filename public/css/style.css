@@ -3363,6 +3363,7 @@ input[type="button"].btn-block {
       -webkit-transition: none;
       -o-transition: none;
       transition: none; } }
+      
 
 .nav {
   display: -webkit-box;
@@ -3769,6 +3770,9 @@ input[type="button"].btn-block {
 .navbar-dark .navbar-toggler {
   color: rgba(255, 255, 255, 0.5);
   border-color: rgba(255, 255, 255, 0.1); }
+  .navbar-gradient {
+    background: linear-gradient(90deg, #28a745, #007bff); /* Degradado de verde a azul */
+}
 
 .navbar-dark .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
@@ -3779,7 +3783,24 @@ input[type="button"].btn-block {
     color: #fff; }
     .navbar-dark .navbar-text a:hover, .navbar-dark .navbar-text a:focus {
       color: #fff; }
-
+      .os-theme-green {
+        background-color: #28a745; /* Verde */
+    }
+    
+    /* Cambia el color de los elementos del sidebar */
+    .sidebar {
+        background-color: #28a745; /* Verde */
+    }
+    
+    /* Si deseas cambiar el color del texto y otros elementos */
+    .sidebar .nav-link {
+        color: #fff; /* Color del texto de los enlaces */
+    }
+    
+    .sidebar .nav-link.active {
+        background-color: #218838; /* Verde más oscuro para el enlace activo */
+    }
+    
 .card {
   position: relative;
   display: -webkit-box;

@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\exitosasController;
 use App\Http\Controllers\servicioController;
 use App\Http\Controllers\PublicidadController;
-
+use App\Http\Controllers\RolController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

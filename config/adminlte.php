@@ -196,10 +196,10 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-light-primary elevation-4 ',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
-    'classes_topnav_nav' => 'navbar-expand',
+    'classes_topnav' => 'navbar-blue navbar-dark',
+    'classes_topnav_nav' => 'navbar-expand ',
     'classes_topnav_container' => 'container',
 
     /*
@@ -296,78 +296,30 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'type' => 'navbar-search',
-            'text' => 'search',
+            'type' => 'navbar-item',
+            'text' => 'Inicio',
+            'url' => '/',
             'topnav_right' => true,
         ],
         
+        [
+            'type' => 'navbar-search',
+            'text' => 'Buscar',
+            'topnav_right' => true,
+        ],
+       
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Buscar',
         ],
         [
             'text' => 'blog',
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-        [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'mash',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
         
+        ['header' => 'Configuracion de Usuarios'],
         [
             'text' => 'Usuarios',
             'icon' => 'fas fa-users',
@@ -381,21 +333,22 @@ return [
             ],
            
         ],
- 
         [
-            'text' => 'Adopción exitosa',
-            'icon' => 'fas fa-paw',
+            'text' => 'Rol',
+            'icon' => 'fas fa-clipboard-list',
             'submenu' => [
                 [
-                    'text' => 'Gestionar Adopciones Exitosas',
-                    'url' => 'exitosas',
-                    'icon' => 'fas fa-paw', // Icono para representar adopciones
+                    'text' => 'Gestionar Roles',
+                    'url' => 'roles',
+                    'icon' => 'fas fa-clipboard-list',
+
                 
                 ],
                 
             ],
            
         ],
+        ['header' => 'Configuracion de Servicios'],
         [
             'text' => 'Servicios',
             'icon' => 'fas fa-clipboard-list',
@@ -404,21 +357,6 @@ return [
                     'text' => 'Gestionar Servicios nuevos',
                     'url' => 'servicio',
                     'icon' => 'fas fa-cogs',
-
-                
-                ],
-                
-            ],
-           
-        ],
-        [
-            'text' => 'Mascota',
-            'icon' => 'fas fa-dog',
-            'submenu' => [
-                [
-                    'text' => 'Gestionar Mascotas',
-                    'url' => 'mascota',
-                    'icon' => 'fas fa-cat',
 
                 
                 ],
@@ -441,24 +379,37 @@ return [
             ],
            
         ],
+        [
+            'text' => 'Adopción exitosa',
+            'icon' => 'fas fa-paw',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Adopciones Exitosas',
+                    'url' => 'exitosas',
+                    'icon' => 'fas fa-paw', // Icono para representar adopciones
+                
+                ],
+                
+            ],
+           
+        ],
+        
+        [
+            'text' => 'Mascota',
+            'icon' => 'fas fa-dog',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Mascotas',
+                    'url' => 'mascota',
+                    'icon' => 'fas fa-cat',
 
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
+                
+                ],
+            ],
         ],
     ],
+
+
 
     /*
     |--------------------------------------------------------------------------

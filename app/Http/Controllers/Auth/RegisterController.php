@@ -19,7 +19,7 @@ class RegisterController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
-            'gender' => 'required|string|in:masculino,femenino,otro',
+            'gender' => 'required|string|in:Masculino,Femenino,Otro',
             'phone' => 'required|string|max:15',
             'address' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -38,6 +38,6 @@ class RegisterController extends Controller
         ]);
 
         // Redirigir después del registro
-        return redirect()->route('login')->with('success', 'User registered successfully.');
+        return redirect()->route('login')->with('success', 'Registro creado correctamente.');
     }
 }
