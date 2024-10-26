@@ -1,94 +1,130 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Rol; // Asegúrate de que esté importado correctamente
 
 class UserController extends Controller
 {
-    // Mostrar la lista de usuarios
+    /**
+     * Muestra una lista de usuarios.
+     */
     public function index()
     {
         $users = User::all();
-        return view('users.index', compact('users'));
+        return view('users.index', compact('users')); // Retorna la vista con la lista de usuarios
     }
 
-    // Mostrar el formulario de creación de usuario
+    /**
+     * Muestra el formulario para crear un nuevo usuario.
+     */
     public function create()
     {
         return view('users.create');
     }
 
-    // Almacenar un nuevo usuario
+    /**
+     * Almacena un nuevo usuario en la base de datos.
+     */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'surname' => 'required',
-            'gender' => 'required',
-            'phone' => 'required|numeric',
-            'email' => 'required|email|unique:users',
-            'address' => 'required',
-            'password' => 'required|min:8',
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'gender' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'surname' => $request->surname,
-            'gender' => $request->gender,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'address' => $request->address,
-            'password' => bcrypt($request->password),
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'surname' => $validatedData['surname'],
+            'gender' => $validatedData['gender'],
+            'phone' => $validatedData['phone'],
+            'address' => $validatedData['address'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']), // Hashea la contraseña
         ]);
 
-        return redirect()->route('users.index')->with('success', 'Usuario creado con éxito.');
+        return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
     }
 
-    // Mostrar detalles de un usuario específico
-    public function show(User $user)
+    /**
+     * Muestra los detalles de un usuario específico.
+     */
+    public function show($id)
     {
+        $user = User::findOrFail($id);
         return view('users.show', compact('user'));
     }
 
-    // Mostrar el formulario para editar un usuario
-    public function edit(User $user)
+    /**
+     * Muestra el formulario para editar un usuario.
+     */
+    public function edit($id)
     {
+        $user = User::findOrFail($id);
         return view('users.edit', compact('user'));
     }
 
-    // Actualizar un usuario existente
-    public function update(Request $request, User $user)
+    /**
+     * Actualiza un usuario específico.
+     */
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'surname' => 'required',
-            'gender' => 'required',
-            'phone' => 'required|numeric',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'address' => 'required',
-            'password' => 'nullable|min:8', // Permitir contraseña opcional durante la edición
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'gender' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$id,
         ]);
 
-        // Actualizar el usuario con los nuevos datos
-        $user->fill($request->only('name', 'surname', 'gender', 'phone', 'email', 'address'));
+        $user = User::findOrFail($id);
+        $user->update($validatedData);
 
-        // Verificar si hay una contraseña nueva
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->password);
-        }
-
-        $user->save();
-
-        return redirect()->route('users.index')->with('success', 'Usuario actualizado con éxito.');
+        return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente.');
     }
 
-    // Eliminar un usuario
-    public function destroy(User $user)
+    /**
+     * Elimina un usuario específico.
+     */
+    public function destroy($id)
     {
+        $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'Usuario eliminado con éxito.');
+
+        return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.');
+    }
+
+    /**
+     * Muestra el formulario para asignar un rol a un usuario.
+     */
+    public function showAssignRoleForm($userId)
+    {
+        $user = User::findOrFail($userId);
+        $roles = Rol::all(); // Obtenemos todos los roles disponibles desde el modelo Rol
+
+        return view('users.assign_role', compact('user', 'roles')); // Enviamos los roles y el usuario a la vista
+    }
+
+    /**
+     * Asigna un rol a un usuario.
+     */
+    public function assignRole(Request $request, $userId)
+    {
+        $user = User::findOrFail($userId);
+        $role = Rol::findOrFail($request->input('role_id')); // Usamos Rol en lugar de Role
+
+        // Asocia el rol al usuario
+        $user->role()->associate($role);
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'Rol asignado correctamente.');
     }
 }

@@ -58,4 +58,12 @@ class ServicioController extends Controller
 
         return redirect()->route('servicio.index')->with('success', 'Servicio eliminado correctamente.');
     }
+    public function mostrarServicio()
+    {
+        // Obtiene todas las publicidades, puedes agregar condiciones como 'estado' => activo
+        $servicio = Servicio::all();
+
+        // Retorna la vista y le pasa los datos
+        return view('services', compact('servicio'));
+    }
 }

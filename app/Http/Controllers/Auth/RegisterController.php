@@ -24,6 +24,7 @@ class RegisterController extends Controller
             'address' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
+            'role' => 'required|string|in:guest,premium', // Validación del rol
         ]);
 
         // Creación del nuevo usuario
@@ -35,6 +36,7 @@ class RegisterController extends Controller
             'address' => $request->address,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role, // Asignar el rol seleccionado por el usuario
         ]);
 
         // Redirigir después del registro

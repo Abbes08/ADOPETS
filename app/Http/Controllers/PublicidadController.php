@@ -8,13 +8,16 @@ use Illuminate\Http\Request;
 
 class PublicidadController extends Controller
 {
+   
     // Listar todas las publicidades
     public function index()
     {
         $publicidades = Publicidad::paginate(10);
         return view('publicidad.index', compact('publicidades'));
+        
     }
-
+   
+   
     // Mostrar el formulario para crear una nueva publicidad
     public function create()
     {
@@ -119,5 +122,14 @@ class PublicidadController extends Controller
         return redirect()->route('publicidad.index')
                          ->with('success', 'Publicidad eliminada exitosamente.');
     }
+    public function mostrarPublicidad()
+    {
+        // Obtiene todas las publicidades, puedes agregar condiciones como 'estado' => activo
+        $publicidad = Publicidad::all();
+
+        // Retorna la vista y le pasa los datos
+        return view('vet', compact('publicidad'));
+    }
+    
 }
 

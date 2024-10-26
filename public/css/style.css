@@ -9177,7 +9177,12 @@ textarea.form-control {
       .aside-stretch-right:after {
         background: transparent;
         display: none; } }
-
+        .mascota-tipo {
+          color: black; /* Cambia el color a negro */
+          font-weight: bold; /* Aplica negrita al texto */
+      }
+      
+      
 .testimony-section {
   overflow: visible;
   z-index: 0;
@@ -9703,6 +9708,10 @@ textarea.form-control {
     margin-bottom: 15px;
     font-weight: 700; }
 
+.navbar-custom {
+    background: linear-gradient(90deg, #28a745, #007bff); /* Cambia los colores según necesites */
+  }
+  
 .categories li, .sidelink li {
   position: relative;
   margin-bottom: 10px;

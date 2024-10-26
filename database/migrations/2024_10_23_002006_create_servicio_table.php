@@ -6,20 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         Schema::create('servicio', function (Blueprint $table) {
-            $table->bigIncrements('servicio_id');
+            $table->id();
             $table->string('nombre');
-            $table->text('descripcion')->nullable();  // Permite que la descripción sea opcional
-            $table->boolean('estado')->default(true);  // Activo por defecto
-            $table->timestamps();  // Para created_at y updated_at
+            $table->text('descripcion');
+            $table->string('estado');
+            $table->timestamps();
         });
     }
-    
-    public function down()
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::dropIfExists('servicio');
     }
-    
 };

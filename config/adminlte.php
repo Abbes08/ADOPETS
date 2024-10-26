@@ -191,16 +191,16 @@ return [
     */
 
     'classes_body' => '',
-    'classes_brand' => '',
-    'classes_brand_text' => '',
+    'classes_brand' => 'navbar-green ',
+    'classes_brand_text' => 'text-white',
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-light-primary elevation-4 ',
+    'classes_sidebar' => 'sidebar-light-green elevation-4 ',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-blue navbar-dark',
+    'classes_topnav' => 'navbar-green navbar-dark',
     'classes_topnav_nav' => 'navbar-expand ',
-    'classes_topnav_container' => 'container',
+    'classes_topnav_container' => 'container ',
 
     /*
     |--------------------------------------------------------------------------
@@ -219,7 +219,7 @@ return [
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
-    'sidebar_scrollbar_theme' => 'os-theme-light',
+    'sidebar_scrollbar_theme' => 'os-theme-light ',
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
     'sidebar_nav_animation_speed' => 300,
@@ -333,21 +333,7 @@ return [
             ],
            
         ],
-        [
-            'text' => 'Rol',
-            'icon' => 'fas fa-clipboard-list',
-            'submenu' => [
-                [
-                    'text' => 'Gestionar Roles',
-                    'url' => 'roles',
-                    'icon' => 'fas fa-clipboard-list',
-
-                
-                ],
-                
-            ],
-           
-        ],
+       
         ['header' => 'Configuracion de Servicios'],
         [
             'text' => 'Servicios',
@@ -385,7 +371,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Gestionar Adopciones Exitosas',
-                    'url' => 'exitosas',
+                    'url' => 'adopciones_exitosas',
                     'icon' => 'fas fa-paw', // Icono para representar adopciones
                 
                 ],
@@ -400,7 +386,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Gestionar Mascotas',
-                    'url' => 'mascota',
+                    'url' => 'mascotas',
                     'icon' => 'fas fa-cat',
 
                 

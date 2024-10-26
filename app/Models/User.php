@@ -25,7 +25,7 @@ class User extends Authenticatable
         'address',
         'email',
         'password',
-    
+        'role_id', // Agregado para que sea asignable de forma masiva
     ];
 
     /**
@@ -47,4 +47,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Relación con el modelo Role (un usuario tiene un rol).
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'rol_id');
+    }
 }

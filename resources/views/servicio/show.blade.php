@@ -17,4 +17,4 @@
         </div>
         <div class="card-footer">
             <a href="{{ route('servicio.index') }}" class="btn btn-secondary">Volver al listado</a>
-            <a href="{{ route('servicio.edit', $servicio->servicio_id) }}" class="btn btn-warning">Editar Servicio</a
+            <a href="{{ route('servicio.edit', $servicio->id) }}" class="btn btn-warning">Editar Servicio</a
