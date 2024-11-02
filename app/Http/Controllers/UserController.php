@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Rol; // Asegúrate de que esté importado correctamente
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -29,29 +30,33 @@ class UserController extends Controller
      * Almacena un nuevo usuario en la base de datos.
      */
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'surname' => 'required|string|max:255',
-            'gender' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'address' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+{
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'surname' => 'required|string|max:255',
+        'gender' => 'required|string|in:Masculino,Femenino,Otro',
+        'phone' => 'required|string|max:15',
+        'address' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+        'role' => 'required|string|in:guest,premium', // Validación del rol
+    ]);
 
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'surname' => $validatedData['surname'],
-            'gender' => $validatedData['gender'],
-            'phone' => $validatedData['phone'],
-            'address' => $validatedData['address'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']), // Hashea la contraseña
-        ]);
+    // Crear el usuario con el rol asignado
+    User::create([
+        'name' => $validatedData['name'],
+        'surname' => $validatedData['surname'],
+        'gender' => $validatedData['gender'],
+        'phone' => $validatedData['phone'],
+        'address' => $validatedData['address'],
+        'email' => $validatedData['email'],
+        'password' => Hash::make($validatedData['password']),
+        'role' => $validatedData['role'], // Asignar el rol
+    ]);
 
-        return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
-    }
+    return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
+}
+
 
     /**
      * Muestra los detalles de un usuario específico.

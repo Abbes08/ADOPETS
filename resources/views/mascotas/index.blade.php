@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($mascotas as $mascota)
+                        @forelse ($mascotas as $mascota)
                                 <tr>
                                     <td>{{ $mascota->nombre }}</td>
                                     <td>{{ $mascota->edad }} años</td>
@@ -37,17 +37,24 @@
                                     <td>{{ $mascota->caracteristicas }}</td>
                                     <td>{{ $mascota->es_venta ? 'Venta' : 'Adopción' }}</td>
                                     <td>
-                                        <a href="{{ route('mascotas.show', $mascota->mascota_id) }}" class="btn btn-info btn-sm" style="border-radius: 5px;">Ver</a>
-                                        <a href="{{ route('mascotas.edit', $mascota->mascota_id) }}" class="btn btn-primary btn-sm" style="border-radius: 5px;">Editar</a>
-                                        <!-- Botón de eliminación con confirm() -->
-                                        <form action="{{ route('mascotas.destroy', $mascota->mascota_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro que deseas eliminar esta mascota?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" style="border-radius: 5px;">Eliminar</button>
-                                        </form>
+                               
+                                    <a href="{{ route('mascotas.show', $mascota) }}" class="btn btn-info">Ver</a>
+<a href="{{ route('mascotas.edit', $mascota) }}" class="btn btn-primary">Editar</a>
+<form action="{{ route('mascotas.destroy', $mascota) }}" method="POST" onsubmit="return confirm('¿Estás seguro?');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+</form>
+
                                     </td>
                                 </tr>
-                            @endforeach
+                                @empty
+                <!-- Mensaje cuando no hay publicidades -->
+                <div class="col-12 text-center">
+                    <p>No hay publicidades registradas en este momento.</p>
+                </div>
+            @endforelse
+                            
                         </tbody>
                     </table>
                 </div>

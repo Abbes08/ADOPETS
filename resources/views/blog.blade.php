@@ -65,9 +65,9 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="{{ url('/') }}">Adopciones exitosas <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i class="ion-ios-arrow-forward"></i></span></p>
-                <h1 class="mb-0 bread">Adopciones exitosas</h1>
-                <a href="{{ route('adopciones_exitosas.create') }}" class="btn btn-primary">Crear Adopción Exitosa</a>
+                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="{{ url('/') }}">Home<i class="ion-ios-arrow-forward"></i></a></span> <span>Aparatado de Adopciones Exitosas<i class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-0 bread">¿Deseas ingresar una Adopcion Exitosa?</h1>
+                <a href="{{ route('adopciones_exitosas.create') }}" class="btn btn-primary">Has click aquí</a>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row">
-            @foreach ($adopciones_exitosa as $adopcion)
+        @forelse ($adopciones_exitosa as $adopcion)
                 <div class="col-md-4 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
                         <a href="blog-single.html" class="block-20 rounded" style="background-image: url('{{ Storage::url($adopcion->imagen) }}');">
@@ -95,7 +95,11 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+                @empty
+                <div class="col-12 text-center">
+                    <p>No hay adopciones exitosas registradas en este momento.</p>
+                </div>
+            @endforelse
         </div>
     </div>
 </section>

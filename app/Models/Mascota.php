@@ -13,19 +13,20 @@ class Mascota extends Model
 
     // Especificar el nombre de la clave primaria
     protected $primaryKey = 'mascota_id';
+    public $incrementing = true;
 
     protected $fillable = [
-   'nombre',
-    'edad',
-    'sexo',
-    'caracteristicas',
-    'es_venta',
-    'raza',
-    'precio',
-    'fotos',
-    'whatsapp_link',
-    'user_id',
-    'activo', 
+        'nombre',
+        'edad',
+        'sexo',
+        'caracteristicas',
+        'es_venta',
+        'raza',
+        'precio',
+        'fotos',
+        'telefono',
+        'user_id',
+        'activo'
     ];
 
     protected $casts = [

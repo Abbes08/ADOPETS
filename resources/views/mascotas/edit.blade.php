@@ -26,68 +26,79 @@
                     @csrf
                     @method('PUT')
 
+                    <!-- Información básica -->
                     <div class="form-group row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label for="nombre">Nombre</label>
                             <input type="text" name="nombre" class="form-control" value="{{ old('nombre', $mascota->nombre) }}" required>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label for="edad">Edad</label>
                             <input type="number" name="edad" class="form-control" value="{{ old('edad', $mascota->edad) }}" required>
                         </div>
                     </div>
 
+                    <!-- Sexo y Teléfono -->
                     <div class="form-group row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label for="sexo">Sexo</label>
                             <select name="sexo" class="form-control" required>
                                 <option value="Macho" {{ old('sexo', $mascota->sexo) == 'Macho' ? 'selected' : '' }}>Macho</option>
                                 <option value="Hembra" {{ old('sexo', $mascota->sexo) == 'Hembra' ? 'selected' : '' }}>Hembra</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <label for="whatsapp_link">Enlace de WhatsApp</label>
-                            <input type="url" name="whatsapp_link" class="form-control" value="{{ old('whatsapp_link', $mascota->whatsapp_link) }}" required>
+                        <div class="col-md-6 mb-3">
+                            <label for="telefono">Teléfono</label>
+                            <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" value="{{ old('telefono', $mascota->telefono) }}" required>
+                            @error('telefono')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <!-- Características -->
+                    <div class="form-group mb-3">
                         <label for="caracteristicas">Características</label>
                         <textarea name="caracteristicas" class="form-control" required>{{ old('caracteristicas', $mascota->caracteristicas) }}</textarea>
                     </div>
 
                     <!-- Checkbox para venta -->
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="es_venta">¿Está en venta?</label>
-                        <input type="checkbox" name="es_venta" id="es_venta" value="1" {{ old('es_venta', $mascota->es_venta) ? 'checked' : '' }}>
+                        <div class="form-check">
+                            <input type="checkbox" name="es_venta" id="es_venta" value="1" class="form-check-input" {{ old('es_venta', $mascota->es_venta) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="es_venta">Sí</label>
+                        </div>
                     </div>
 
                     <!-- Campos adicionales solo si es venta -->
                     <div class="form-group" id="venta_fields" style="{{ old('es_venta', $mascota->es_venta) ? 'display:block;' : 'display:none;' }}">
                         <div class="form-group row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <label for="raza">Raza</label>
                                 <input type="text" name="raza" class="form-control" value="{{ old('raza', $mascota->raza) }}">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <label for="precio">Precio</label>
                                 <input type="number" name="precio" class="form-control" value="{{ old('precio', $mascota->precio) }}">
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <!-- Subir nuevas imágenes -->
+                    <div class="form-group mb-3">
                         <label for="fotos">Subir nuevas imágenes</label>
                         <input type="file" name="fotos[]" class="form-control" multiple>
                     </div>
 
-                    <div class="form-group">
+                    <!-- Imágenes actuales -->
+                    <div class="form-group mb-3">
                         <label>Imágenes actuales</label>
                         <div class="row">
                             @foreach($mascota->fotos as $foto)
-                                <div class="col-md-3">
+                                <div class="col-md-3 mb-3">
                                     <img src="{{ asset('storage/' . $foto) }}" class="img-thumbnail" alt="Imagen de la mascota" width="150">
-                                    <div class="form-check">
+                                    <div class="form-check mt-2">
                                         <input class="form-check-input" type="checkbox" name="eliminar_fotos[]" value="{{ $foto }}">
                                         <label class="form-check-label">
                                             Eliminar esta imagen
@@ -98,7 +109,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-success btn-block" style="border-radius: 20px; padding: 10px 20px;">Actualizar Mascota</button>
+                    <button type="submit" class="btn btn-success btn-block mt-3" style="border-radius: 20px; padding: 10px 20px;">Actualizar Mascota</button>
                 </form>
             </div>
         </div>

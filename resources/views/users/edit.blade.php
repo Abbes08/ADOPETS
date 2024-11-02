@@ -46,9 +46,21 @@
                         <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}" required style="max-width: 400px;"> <!-- Aumenta el max-width aquí -->
                     </div>
                     <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Dejar en blanco para no cambiar" style="max-width: 400px;"> <!-- Aumenta el max-width aquí -->
-                    </div>
+    <label for="password">Contraseña</label>
+    <input type="password" class="form-control" id="password" name="password" required style="max-width: 400px;">
+</div>
+<div class="form-group">
+    <label for="password_confirmation">Confirmar Contraseña</label>
+    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required style="max-width: 400px;">
+</div>
+<div class="form-group">
+    <label for="role">Rol</label>
+    <select class="form-control" id="role" name="role" required style="max-width: 400px;">
+        <option value="">Selecciona un rol</option>
+        <option value="guest">Invitado</option>
+        <option value="premium">Premium</option>
+    </select>
+</div>
                     <button type="submit" class="btn btn-primary" style="border-radius: 20px; padding: 10px 20px;">Actualizar</button>
                 </form>
             </div>

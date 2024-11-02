@@ -9181,7 +9181,34 @@ textarea.form-control {
           color: black; /* Cambia el color a negro */
           font-weight: bold; /* Aplica negrita al texto */
       }
-      
+     /* Estilos para centrar el icono y darle fondo circular */
+/* Estilos iniciales para ocultar el ícono */
+.img-wrap .icon-expand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 128, 0, 0.7); /* Verde semitransparente */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0; /* Oculto inicialmente */
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+/* Mostrar el icono solo cuando se hace hover en la imagen */
+.img-wrap:hover .icon-expand {
+  opacity: 1; /* Muestra el icono al hacer hover */
+}
+
+.img-wrap .icon-expand:hover {
+  background-color: rgba(0, 128, 0, 0.9); /* Cambia ligeramente el color en hover */
+}
+
       
 .testimony-section {
   overflow: visible;

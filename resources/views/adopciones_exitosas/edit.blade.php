@@ -41,9 +41,10 @@
                         </select>
                     </div>
 
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-success" style="border-radius: 20px; padding: 10px 20px;">Actualizar</button>
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary mb-5" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
+                    <!-- Botones de acción alineados juntos a la derecha -->
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-success mr-2" style="border-radius: 20px; padding: 10px 20px;">Actualizar</button>
+                        <a href="{{ url()->previous() }}" class="btn btn-secondary" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
                     </div>
                 </form>
             </div>

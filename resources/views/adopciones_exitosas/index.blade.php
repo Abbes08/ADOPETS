@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($adopciones as $adopcion)
+                       @forelse ($adopciones as $adopcion)
                             <tr>
                                 <td>{{ $adopcion->mascota->nombre }}</td>
                                 <td>{{ $adopcion->reseña }}</td>
@@ -44,7 +44,12 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                            @empty
+                <!-- Mensaje cuando no hay publicidades -->
+                <div class="col-12 text-center">
+                    <p>No hay publicidades registradas en este momento.</p>
+                </div>
+            @endforelse
                     </tbody>
                 </table>
             </div>

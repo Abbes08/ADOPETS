@@ -21,7 +21,9 @@
 
                         @if ($mascota->es_venta)
                             <p><strong>Raza:</strong> {{ $mascota->raza }}</p>
-                            <p><strong>Precio:</strong> ${{ number_format($mascota->precio, 2) }}</p>
+                            @if ($mascota->precio)
+                                <p><strong>Precio:</strong> ${{ number_format($mascota->precio, 2) }}</p>
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -35,24 +37,25 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            @foreach ($mascota->fotos as $foto)
-                                <div class="col-md-4 mb-3">
-                                    <img src="{{ asset('storage/' . $foto) }}" class="img-fluid img-thumbnail" alt="Foto de {{ $mascota->nombre }}">
-                                </div>
-                            @endforeach
+                            @if ($mascota->fotos && count($mascota->fotos) > 0)
+                                @foreach ($mascota->fotos as $foto)
+                                    <div class="col-md-4 mb-3">
+                                        <img src="{{ asset('storage/' . $foto) }}" class="img-fluid img-thumbnail" alt="Foto de {{ $mascota->nombre }}">
+                                    </div>
+                                @endforeach
+                            @else
+                                <p>No hay fotos disponibles para esta mascota.</p>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Botón para adoptar o comprar, pasando por el controlador para registrar la transacción -->
-        <form action="{{ route('mascotas.adquirir', $mascota->mascota_id) }}" method="POST" class="mt-3">
-            @csrf
-            <button type="submit" class="btn btn-primary" style="border-radius: 20px; padding: 10px 20px;">
-                {{ $mascota->es_venta ? 'Comprar Mascota' : 'Adoptar Mascota' }}
-            </button>
-        </form>
+        <!-- Botón para adoptar o comprar redireccionando a WhatsApp -->
+        <a href="https://wa.me/{{ preg_replace('/\D/', '', $mascota->telefono) }}?text=Estoy%20interesado%20en%20{{ $mascota->es_venta ? 'comprar' : 'adoptar' }}%20a%20{{ $mascota->nombre }}" target="_blank" class="btn btn-primary mt-3" style="border-radius: 20px; padding: 10px 20px;">
+            {{ $mascota->es_venta ? 'Comprar Mascota' : 'Adoptar Mascota' }}
+        </a>
 
         <a href="{{ route('mascotas.index') }}" class="btn btn-secondary mt-3" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
     </div>

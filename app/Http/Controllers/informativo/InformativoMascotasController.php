@@ -25,7 +25,7 @@ class InformativoMascotasController extends Controller
         'precio' => 'nullable|numeric|min:0',
         'fotos' => 'required|array', // Asegúrate de que sea un array para las fotos
         'fotos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validación para cada foto
-        'whatsapp_link' => 'required|url',
+        'telefono' => 'required|string|max:15',
     ]);
 
     // Procesar las imágenes y almacenarlas
@@ -46,7 +46,7 @@ class InformativoMascotasController extends Controller
         'raza' => $request->raza,
         'precio' => $request->precio,
         'fotos' => json_encode($fotos), // Almacenar las fotos como JSON
-        'whatsapp_link' => $request->whatsapp_link,
+        'telefono' => $request->telefono,
         'user_id' => auth()->id(), // Suponiendo que el usuario está autenticado
     ]);
 
@@ -58,6 +58,8 @@ class InformativoMascotasController extends Controller
     $mascota = Mascotas::findOrFail($mascota_id); // Aquí debes buscar por mascota_id
     return view('mascotas.show', compact('mascota'));
 }
+// Ejemplo en el controlador MascotaController
+
 
 
 }

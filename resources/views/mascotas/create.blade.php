@@ -11,7 +11,7 @@
             </div>
 
             <div class="card-body">
-                <a href="{{ url()->previous() }}" class="btn btn-secondary mb-5" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
+                <a href="{{ url()->previous() }}" class="btn btn-secondary mb-4" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -27,79 +27,86 @@
                     @csrf
 
                     <div class="form-group row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label for="nombre">Nombre</label>
                             <input type="text" name="nombre" class="form-control" value="{{ old('nombre') }}" required>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label for="edad">Edad</label>
                             <input type="number" name="edad" class="form-control" value="{{ old('edad') }}" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label for="sexo">Sexo</label>
                             <select name="sexo" class="form-control" required>
                                 <option value="Macho" {{ old('sexo') == 'Macho' ? 'selected' : '' }}>Macho</option>
                                 <option value="Hembra" {{ old('sexo') == 'Hembra' ? 'selected' : '' }}>Hembra</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <label for="whatsapp_link">Enlace de WhatsApp</label>
-                            <input type="url" name="whatsapp_link" class="form-control" value="{{ old('whatsapp_link') }}" required>
+                        <div class="col-md-6 mb-3">
+                            <label for="telefono">Teléfono</label>
+                            <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" value="{{ old('telefono') }}" required>
+                            @error('telefono')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="caracteristicas">Características</label>
                         <textarea name="caracteristicas" class="form-control" required>{{ old('caracteristicas') }}</textarea>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="es_venta">¿Está en venta?</label>
-                        <input type="checkbox" name="es_venta" id="es_venta" value="1" {{ old('es_venta') ? 'checked' : '' }}>
+                        <div class="form-check">
+                            <input type="checkbox" name="es_venta" id="es_venta" value="1" class="form-check-input" {{ old('es_venta') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="es_venta">Sí</label>
+                        </div>
                     </div>
 
                     <div class="form-group" id="venta_fields" style="{{ old('es_venta') ? 'display:block;' : 'display:none;' }}">
                         <div class="form-group row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <label for="raza">Raza</label>
                                 <input type="text" name="raza" class="form-control" value="{{ old('raza') }}">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <label for="precio">Precio</label>
                                 <input type="number" name="precio" class="form-control" value="{{ old('precio') }}">
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="fotos">Subir nuevas imágenes</label>
                         <input type="file" name="fotos[]" class="form-control" multiple accept="image/*" id="new_images">
                     </div>
 
-                    <div class="form-group">
+                    @if(isset($mascota))
+                    <div class="form-group mb-3">
                         <label>Imágenes actuales</label>
                         <div class="row" id="current_images">
-                            @if(isset($mascota))
-                                @foreach($mascota->fotos as $foto)
-                                    <div class="col-md-3">
-                                        <img src="{{ asset('storage/' . $foto->ruta) }}" class="img-thumbnail" alt="Imagen de la mascota" width="150">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="eliminar_fotos[]" value="{{ $foto->id }}">
-                                            <label class="form-check-label">
-                                                Eliminar esta imagen
-                                            </label>
-                                        </div>
+                            @foreach($mascota->fotos as $foto)
+                                <div class="col-md-3 mb-3">
+                                    <img src="{{ asset('storage/' . $foto->ruta) }}" class="img-thumbnail" alt="Imagen de la mascota" width="150">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="eliminar_fotos[]" value="{{ $foto->id }}">
+                                        <label class="form-check-label">
+                                            Eliminar esta imagen
+                                        </label>
                                     </div>
-                                @endforeach
-                            @endif
+                                </div>
+                            @endforeach
                         </div>
-                        <div id="new_images_preview" class="row mt-2"></div>
                     </div>
+                    @endif
 
-                    <button type="submit" class="btn btn-success btn-block" style="border-radius: 20px; padding: 10px 20px;">Registrar Mascota</button>
+                    <div id="new_images_preview" class="row mt-2"></div>
+
+                    <button type="submit" class="btn btn-success btn-block mt-3" style="border-radius: 20px; padding: 10px 20px;">Registrar Mascota</button>
                 </form>
             </div>
         </div>
@@ -125,7 +132,7 @@
 
             reader.onload = function(e) {
                 const div = document.createElement('div');
-                div.classList.add('col-md-3');
+                div.classList.add('col-md-3', 'mb-3');
                 div.innerHTML = `
                     <img src="${e.target.result}" class="img-thumbnail" alt="Vista previa" width="150">
                 `;

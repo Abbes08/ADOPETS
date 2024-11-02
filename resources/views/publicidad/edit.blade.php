@@ -11,7 +11,7 @@
             </div>
 
             <div class="card-body">
-                <a href="{{ url()->previous() }}" class="btn btn-secondary mb-5" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
+                <a href="{{ url()->previous() }}" class="btn btn-secondary mb-4" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -38,7 +38,7 @@
 
                         <div class="col-md-6 form-group">
                             <label for="precio">Precio</label>
-                            <input type="number" step="0.01" class="form-control @error('precio') is-invalid @enderror" id="precio" name="precio" value="{{ old('precio', $publicidad->precio) }}" required>
+                            <input type="number" step="0.01" class="form-control @error('precio') is-invalid @enderror" id="precio" name="precio" value="{{ old('precio', $publicidad->precio ?? '') }}">
                             @error('precio')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -47,7 +47,7 @@
 
                     <div class="form-group">
                         <label for="descripcion">Descripción</label>
-                        <textarea class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" rows="5" required>{{ old('descripcion', $publicidad->descripcion) }}</textarea>
+                        <textarea class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" rows="4" required>{{ old('descripcion', $publicidad->descripcion) }}</textarea>
                         @error('descripcion')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -67,9 +67,7 @@
                             <select class="form-control @error('user_id') is-invalid @enderror" id="user_id" name="user_id" required>
                                 <option value="">Seleccionar Usuario</option>
                                 @foreach ($users as $user)
-                                    <option value="{{ $user->id }}" {{ $user->id == $publicidad->user_id ? 'selected' : '' }}>
-                                        {{ $user->name }}
-                                    </option>
+                                    <option value="{{ $user->id }}" {{ $user->id == $publicidad->user_id ? 'selected' : '' }}>{{ $user->name }}</option>
                                 @endforeach
                             </select>
                             @error('user_id')
@@ -82,7 +80,9 @@
                         <label for="imagen">Imagen</label>
                         <input type="file" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
                         @if($publicidad->imagen)
-                            <img src="{{ asset('storage/'.$publicidad->imagen) }}" alt="Imagen actual" class="img-thumbnail mt-2" width="150">
+                            <div class="mt-2">
+                                <img src="{{ asset('storage/'.$publicidad->imagen) }}" alt="Imagen actual" class="img-thumbnail" width="150">
+                            </div>
                         @endif
                         @error('imagen')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -118,7 +118,10 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-success btn-block" style="border-radius: 20px; padding: 10px 20px;">Actualizar Publicidad</button>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-success mr-2" style="border-radius: 20px; padding: 10px 20px;">Actualizar Publicidad</button>
+                        <a href="{{ url()->previous() }}" class="btn btn-secondary" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
+                    </div>
                 </form>
             </div>
         </div>

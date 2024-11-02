@@ -68,10 +68,52 @@
             <div class="col-md-9 ftco-animate pb-5">
                 <p class="breadcrumbs mb-2">
                     <span class="mr-2"><a href="{{ route('index') }}">Home <i class="ion-ios-arrow-forward"></i></a></span>
-                    <span>Publicidad <i class="ion-ios-arrow-forward"></i></span>
+                    <span> Apartado de publicidad <i class="ion-ios-arrow-forward"></i></span>
                 </p>
-                <h1 class="mb-0 bread">Apartado de Publicidad</h1>
-				<a href="{{ route('publicidad.create') }}" class="btn btn-primary">Crear Publicidad</a>
+                <h1 class="mb-0 bread">¿Deseas crear una publicidad?</h1>
+				<a href="{{ route('publicidad.create') }}" class="btn btn-primary">Has click aquí</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Mostrar lista de publicidades en vet.blade.php -->
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            @forelse($publicidad as $pub)
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="staff">
+                        <div class="img-wrap d-flex align-items-stretch position-relative">
+                            <div class="img align-self-stretch" style="background-image: url('{{ asset('storage/' . $pub->imagen) }}');">
+                                <a href="{{ asset('storage/' . $pub->imagen) }}" class="icon image-popup d-flex justify-content-center align-items-center icon-expand">
+                                    <span class="fa fa-expand"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text pt-3 px-3 pb-4 text-center">
+                            <h3>{{ $pub->nombre }}</h3>
+                            <span class="position mb-2">{{ $pub->descripcion }}</span>
+                            <ul class="ftco-social text-center">
+                                <li class="ftco-animate">
+                                    <a href="https://wa.me/{{ $pub->telefono }}" target="_blank" class="d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-whatsapp"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-12 text-center">
+                    <p>No hay publicidades registradas en este momento.</p>
+                </div>
+            @endforelse
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <nav aria-label="Page navigation">
+                    {{ $publicidad->links('pagination::bootstrap-4') }}
+                </nav>
             </div>
         </div>
     </div>
@@ -79,54 +121,6 @@
 
 
 
-<!-- Mostrar lista de publicidades -->
-
-
-<section class="ftco-section bg-light">
-    <div class="container">
-        <div class="row">
-            @foreach($publicidad as $pub)
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="staff">
-                        <div class="img-wrap d-flex align-items-stretch">
-                            <div class="img align-self-stretch" style="background-image: url('{{ asset('storage/' . $pub->imagen) }}');"></div>
-                        </div>
-                        <div class="text pt-3 px-3 pb-4 text-center">
-                            <h3>{{ $pub->nombre }}</h3>
-                            <span class="position mb-2">{{ $pub->descripcion }}</span>
-                            <div class="faded">
-                                <p>Teléfono: {{ $pub->telefono }}</p>
-                               
-                                <ul class="ftco-social text-center">
-                                    <li class="ftco-animate">
-                                        <a href="#" class="d-flex align-items-center justify-content-center">
-                                            <span class="fa fa-twitter"></span>
-                                        </a>
-                                    </li>
-                                    <li class="ftco-animate">
-                                        <a href="#" class="d-flex align-items-center justify-content-center">
-                                            <span class="fa fa-facebook"></span>
-                                        </a>
-                                    </li>
-                                    <li class="ftco-animate">
-                                        <a href="#" class="d-flex align-items-center justify-content-center">
-                                            <span class="fa fa-google"></span>
-                                        </a>
-                                    </li>
-                                    <li class="ftco-animate">
-                                        <a href="#" class="d-flex align-items-center justify-content-center">
-                                            <span class="fa fa-instagram"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
 <!-- Mostrar lista de publicidades -->
 					
     

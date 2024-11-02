@@ -130,7 +130,7 @@
                             <div class="col-md-6">
                                 <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required style="border: 2px solid #004d40; border-radius: 5px;">
                                     <option value="" disabled selected>Seleccionar</option>
-                                    <option value="guest" {{ old('role') == 'guest' ? 'selected' : '' }}>Guest</option>
+                                    <option value="guest" {{ old('role') == 'guest' ? 'selected' : '' }}>Invitado</option>
                                     <option value="premium" {{ old('role') == 'premium' ? 'selected' : '' }}>Premium</option>
                                 </select>
                                 @error('role')

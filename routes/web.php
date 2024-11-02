@@ -63,8 +63,6 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-
-
 Route::middleware(['auth'])->group(function () {
     Route::resource('adopciones_exitosas', AdopcionExitosaController::class);
 });
@@ -97,7 +95,6 @@ Route::delete('/mascotas/{mascota}', [MascotaController::class,'destroy'])->name
 
 // Ruta para adquirir (adoptar o comprar) una mascota
 Route::post('/mascotas/{mascota}/adquirir', [TransaccionController::class, 'store'])->name('mascotas.adquirir');
-Route::get('/mascotas/{mascota}', [MascotaController::class, 'detalle'])->name('mascotas.detalle');
 
 //RUTAS PARA ADOPCIONES EXITOSAS
 Route::get('/adopciones_exitosas/{id}', [AdopcionExitosaController::class, 'show'])->name('adopciones_exitosas.show');
@@ -119,8 +116,14 @@ Route::delete('/servicio/{mascota}', [servicioController::class,'destroy'])->nam
 
 
 // Ruta para mostrar la publicidad en la vista 'vet'
+
 Route::get('/vet', [PublicidadController::class, 'mostrarPublicidad'])->name('vet');
 Route::get('/blog', [AdopcionExitosaController::class, 'mostrarAdopcionExitosa'])->name('blog');
 Route::get('/services', [ServicioController::class, 'mostrarServicio'])->name('services');
 Route::get('/gallery', [MascotaController::class, 'mostrarMascotas'])->name('gallery');
-Route::get('/mascotas/{id}', [InformativoMascotasController::class, 'show'])->name('mascotas.show');
+
+Route::get('/mascotas/detalle/{mascota_id}', [MascotaController::class, 'detalle'])->name('detalleMascota');
+Route::get('/mascotas/{mascota}', [MascotaController::class, 'show'])->name('mascotas.show');
+
+
+

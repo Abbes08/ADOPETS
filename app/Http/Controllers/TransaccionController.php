@@ -1,35 +1,40 @@
 <?php
 
-namespace App\Http\Controllers;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Http\Request;
-use App\Models\Mascota; 
-use App\Models\Transaccion; 
-use Illuminate\Support\Facades\Auth; 
-
-class TransaccionController extends Controller
+class CreateTransaccionesTable extends Migration
 {
-    public function store(Request $request, $mascotaId)
-{
-    $mascota = Mascota::findOrFail($mascotaId);
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('transacciones', function (Blueprint $table) {
+            $table->id(); // Clave primaria para la transacción
+            $table->unsignedBigInteger('mascota_id'); // Referencia a la mascota
+            $table->unsignedBigInteger('user_id'); // Referencia al usuario
+            $table->string('tipo', 50); // Tipo de transacción (e.g., compra, adopcion)
+            $table->decimal('precio', 10, 2)->default(0); // Precio de la transacción (0 si es adopción)
+            $table->timestamp('fecha_transaccion'); // Fecha de la transacción
+            $table->timestamps();
 
-    // Tipo de transacción: 'compra' si está en venta, 'adopcion' si no lo está
-    $tipo = $mascota->es_venta ? 'compra' : 'adopcion';
-    $precio = $mascota->es_venta ? $mascota->precio : 0;
+            // Claves foráneas
+            $table->foreign('mascota_id')->references('mascota_id')->on('mascotas')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+    }
 
-    // Crear la transacción en la base de datos
-    Transaccion::create([
-        'mascota_id' => $mascota->mascota_id,
-        'user_id' => Auth::id(),
-        'tipo' => $tipo,
-        'precio' => $precio,
-        'fecha_transaccion' => now(),
-    ]);
-
-    // Marcar la mascota como inactiva
-    $mascota->update(['activo' => false]);
-
-    // Redireccionar al enlace de WhatsApp
-    return redirect()->away($mascota->whatsapp_link);
-}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('transacciones');
+    }
 }

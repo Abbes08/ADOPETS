@@ -46,9 +46,23 @@
                         <input type="email" class="form-control" id="email" name="email" required style="max-width: 300px;">
                     </div>
                     <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" required style="max-width: 300px;">
-                    </div>
+    <label for="password">Contraseña</label>
+    <input type="password" class="form-control" id="password" name="password" required style="max-width: 300px;">
+</div>
+<div class="form-group">
+    <label for="password_confirmation">Confirmar Contraseña</label>
+    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required style="max-width: 300px;">
+</div>
+<div class="form-group">
+    <label for="role">Rol</label>
+    <select class="form-control" id="role" name="role" required style="max-width: 300px;">
+        <option value="">Selecciona un rol</option>
+        <option value="guest">Invitado</option>
+        <option value="premium">Premium</option>
+    </select>
+</div>
+
+
                     <button type="submit" class="btn btn-success" style="border-radius: 20px;">Crear</button>
                 </form>
             </div>

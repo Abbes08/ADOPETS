@@ -44,7 +44,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($publicidades as $publicidad)
+                        @forelse($publicidades as $publicidad)
                                 <tr>
 
                                     <td>{{ $publicidad->nombre }}</td>
@@ -74,7 +74,11 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @empty
+                                <div class="col-12 text-center">
+                    <p>No hay publicidades registradas en este momento.</p>
+                </div>
+            @endforelse
                         </tbody>
                     </table>
                 </div>
