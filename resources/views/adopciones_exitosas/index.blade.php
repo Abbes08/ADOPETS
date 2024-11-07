@@ -11,49 +11,89 @@
             </div>
 
             <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-
                 <a href="{{ route('adopciones_exitosas.create') }}" class="btn btn-success mb-3">Nueva Adopción Exitosa</a>
 
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Mascota</th>
-                            <th>Reseña</th>
-                            <th>Fecha de Reseña</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                       @forelse ($adopciones as $adopcion)
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-bordered">
+                        <thead>
                             <tr>
-                                <td>{{ $adopcion->mascota->nombre }}</td>
-                                <td>{{ $adopcion->reseña }}</td>
-                                <td>{{ $adopcion->fecha_reseña->format('d-m-Y') }}</td>
-                                <td>{{ $adopcion->estado ? 'Activo' : 'Inactivo' }}</td>
-                                <td>
-                                    <a href="{{ route('adopciones_exitosas.show', $adopcion->adop_id) }}" class="btn btn-info">Ver</a>
-                                    <a href="{{ route('adopciones_exitosas.edit', $adopcion->adop_id) }}" class="btn btn-primary">Editar</a>
-                                    <form action="{{ route('adopciones_exitosas.destroy', $adopcion->adop_id) }}" method="POST" style="display:inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    </form>
-                                </td>
+                                <th>Mascota</th>
+                                <th>Reseña</th>
+                                <th>Fecha de Reseña</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($adopciones as $adopcion)
+                                <tr>
+                                    <td>{{ $adopcion->mascota->nombre }}</td>
+                                    <td>{{ $adopcion->reseña }}</td>
+                                    <td>{{ $adopcion->fecha_reseña->format('d-m-Y') }}</td>
+                                    <td>
+                                        <span class="badge badge-{{ $adopcion->estado ? 'success' : 'secondary' }}">
+                                            {{ $adopcion->estado ? 'Activo' : 'Inactivo' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('adopciones_exitosas.show', $adopcion->adop_id) }}" class="btn btn-info btn-sm" style="border-radius: 5px;">Ver</a>
+                                        <a href="{{ route('adopciones_exitosas.edit', $adopcion->adop_id) }}" class="btn btn-primary btn-sm" style="border-radius: 5px;">Editar</a>
+                                        <button class="btn btn-danger btn-sm" style="border-radius: 5px;" onclick="confirmDelete('{{ route('adopciones_exitosas.destroy', $adopcion->adop_id) }}')">Eliminar</button>
+                                    </td>
+                                </tr>
                             @empty
-                <!-- Mensaje cuando no hay publicidades -->
-                <div class="col-12 text-center">
-                    <p>No hay publicidades registradas en este momento.</p>
+                                <tr>
+                                    <td colspan="5" class="text-center">No hay adopciones exitosas registradas en este momento.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
-            @endforelse
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
 </div>
-@endsection
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Mostrar alerta de éxito o error basado en la sesión
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#28a745'
+        });
+    @elseif(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: "{{ session('error') }}",
+            confirmButtonColor: '#d33'
+        });
+    @endif
+
+    // Confirmación de eliminación
+    function confirmDelete(url) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let form = document.createElement('form');
+                form.action = url;
+                form.method = 'POST';
+                form.innerHTML = '@csrf @method("DELETE")';
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+</script>
+@stop

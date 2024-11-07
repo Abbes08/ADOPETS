@@ -33,7 +33,7 @@
 
                     <div class="text-right">
                         <button type="submit" class="btn btn-success" style="border-radius: 20px; padding: 10px 20px;">Crear Servicio</button>
-                        <a href="{{ route('servicio.index') }}" class="btn btn-secondary" style="border-radius: 20px; padding: 10px 20px;">Volver</a> <!-- Botón de volver -->
+                        <a href="{{ route('servicio.index') }}" class="btn btn-secondary" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
                     </div>
                 </form>
             </div>
@@ -41,3 +41,4 @@
     </div>
 </div>
 @endsection
+
