@@ -4,14 +4,13 @@
 
 @section('content')
 <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
-    <div class="container" style="max-width: 30%; padding: 0 15px;"> <!-- Ajustado a 60% y padding -->
+    <div class="container" style="max-width: 30%; padding: 0 15px;">
         <div class="card shadow" style="border-radius: 15px;">
             <div class="card-header text-center" style="background: linear-gradient(90deg, #a8e063, #56ab2f); border-top-left-radius: 15px; border-top-right-radius: 15px; color: white;">
                 <h3 class="card-title">Editar Servicio</h3>
             </div>
 
             <div class="card-body">
-                <!-- Asegúrate de que la ruta sea correcta y el método sea PUT -->
                 <form action="{{ route('servicio.update', $servicio->id) }}" method="POST">
                     @csrf
                     @method('PUT')
@@ -36,7 +35,7 @@
 
                     <div class="text-right">
                         <button type="submit" class="btn btn-success" style="border-radius: 20px; padding: 10px 20px;">Actualizar Servicio</button>
-                        <a href="{{ route('servicio.index') }}" class="btn btn-secondary" style="border-radius: 20px; padding: 10px 20px;">Volver</a> <!-- Botón de volver -->
+                        <a href="{{ route('servicio.index') }}" class="btn btn-secondary" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
                     </div>
                 </form>
             </div>

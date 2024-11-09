@@ -11,6 +11,7 @@
             </div>
 
             <div class="card-body">
+<<<<<<< HEAD
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -19,6 +20,9 @@
 
                 <!-- Sección de búsqueda -->
                 <div class="d-flex justify-content-between mb-3">
+=======
+                <div class="text-right mb-3">
+>>>>>>> 732668186e9a27aa232564c4e68e74d9f9feaf5f
                     <a href="{{ route('users.create') }}" class="btn btn-success" style="border-radius: 20px; padding: 10px 20px;">Crear Usuario</a>
                     <div class="input-group" style="width: 300px;">
                         <input type="text" id="search" placeholder="Buscar usuario..." class="form-control">
@@ -56,6 +60,7 @@
                                     <td>{{ $user->email }}</td>
 
                                     <td>
+<<<<<<< HEAD
                                         @if ($user->is_active)
                                             <form action="{{ route('users.deactivate', $user->id) }}" method="POST" style="display: inline-block;">
                                                 @csrf
@@ -86,6 +91,10 @@
                                                 </form>
                                             @endif
                                         @endif
+=======
+                                        <a href="{{ route('users.edit', $user) }}" class="btn btn-primary btn-sm" style="border-radius: 5px;">Editar</a>
+                                        <button class="btn btn-danger btn-sm" style="border-radius: 5px;" onclick="confirmDelete('{{ route('users.destroy', $user) }}')">Eliminar</button>
+>>>>>>> 732668186e9a27aa232564c4e68e74d9f9feaf5f
                                     </td>
                                 </tr>
                             @endforeach
@@ -97,6 +106,7 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -143,5 +153,48 @@
             });
         });
     });
+=======
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Mostrar alerta de éxito o error basado en la sesión
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#28a745'
+        });
+    @elseif(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: "{{ session('error') }}",
+            confirmButtonColor: '#d33'
+        });
+    @endif
+
+    // Confirmación de eliminación
+    function confirmDelete(url) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let form = document.createElement('form');
+                form.action = url;
+                form.method = 'POST';
+                form.innerHTML = '@csrf @method("DELETE")';
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+>>>>>>> 732668186e9a27aa232564c4e68e74d9f9feaf5f
 </script>
 @stop

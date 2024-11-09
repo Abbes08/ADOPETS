@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Carbon\Carbon; // Agrega esta línea
 use App\Models\Mascota;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,6 @@ class MascotaController extends Controller
         return view('mascotas.index', compact('mascotas'));
     }
     
-
     public function create()
     {
         return view('mascotas.create');
@@ -71,7 +71,7 @@ class MascotaController extends Controller
             'raza' => $validatedData['raza'] ?? null,
             'precio' => $validatedData['precio'] ?? null,
             'fotos' => $fotos,
-            'telefono' => $request->telefono,
+            'telefono' => $validatedData['telefono'],
             'user_id' => Auth::id(),
             'activo' => true, // La mascota está activa por defecto
         ]);
@@ -119,7 +119,7 @@ class MascotaController extends Controller
             'es_venta' => $request->has('es_venta') ? 1 : 0,
             'raza' => $validatedData['raza'] ?? null,
             'precio' => $validatedData['precio'] ?? null,
-            'telefono' => $request->telefono,
+            'telefono' => $validatedData['telefono'],
         ]);
 
         return redirect()->route('mascotas.index')->with('success', 'Mascota actualizada correctamente.');
@@ -155,6 +155,7 @@ class MascotaController extends Controller
     
         return view('gallery', compact('mascotas'));
     }
+
     public function detalle($mascota_id)
     {
         $mascota = Mascota::findOrFail($mascota_id);

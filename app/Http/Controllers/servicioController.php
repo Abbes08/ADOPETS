@@ -46,9 +46,12 @@ class ServicioController extends Controller
             'estado' => 'required|boolean',
         ]);
 
-        Servicio::create($request->all());
-
-        return redirect()->route('servicio.index')->with('success', 'Servicio creado correctamente.');
+        try {
+            Servicio::create($request->all());
+            return redirect()->route('servicio.index')->with('success', 'Servicio creado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('servicio.index')->with('error', 'Hubo un problema al crear el servicio.');
+        }
     }
 
     public function edit($id)
@@ -66,24 +69,30 @@ class ServicioController extends Controller
         ]);
 
         $servicio = Servicio::find($id);
-        $servicio->update($request->all());
 
-        return redirect()->route('servicio.index')->with('success', 'Servicio actualizado correctamente.');
+        try {
+            $servicio->update($request->all());
+            return redirect()->route('servicio.index')->with('success', 'Servicio actualizado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('servicio.index')->with('error', 'Hubo un problema al actualizar el servicio.');
+        }
     }
 
     public function destroy($id)
     {
         $servicio = Servicio::find($id);
-        $servicio->delete();
 
-        return redirect()->route('servicio.index')->with('success', 'Servicio eliminado correctamente.');
+        try {
+            $servicio->delete();
+            return redirect()->route('servicio.index')->with('success', 'Servicio eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('servicio.index')->with('error', 'Hubo un problema al eliminar el servicio.');
+        }
     }
+
     public function mostrarServicio()
     {
-        // Obtiene todas las publicidades, puedes agregar condiciones como 'estado' => activo
         $servicio = Servicio::all();
-
-        // Retorna la vista y le pasa los datos
         return view('services', compact('servicio'));
     }
     public function showServicios()
@@ -93,3 +102,4 @@ class ServicioController extends Controller
 }
 
 }
+

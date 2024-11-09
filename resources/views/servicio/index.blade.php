@@ -53,11 +53,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('servicio.edit', $servicio->id) }}" class="btn btn-primary btn-sm" style="border-radius: 5px;">Editar</a>
-                                        <form action="{{ route('servicio.destroy', $servicio->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" style="border-radius: 5px;">Eliminar</button>
-                                        </form>
+                                        <button class="btn btn-danger btn-sm" style="border-radius: 5px;" onclick="confirmDelete('{{ route('servicio.destroy', $servicio->id) }}')">Eliminar</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -105,5 +101,27 @@
             });
         });
     });
+
+    function confirmDelete(url) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let form = document.createElement('form');
+                form.action = url;
+                form.method = 'POST';
+                form.innerHTML = '@csrf @method("DELETE")';
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
 </script>
 @stop

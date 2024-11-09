@@ -34,20 +34,14 @@ class AdopcionExitosaController extends Controller
     }
     
     public function create()
-{
-    // Obtiene todas las mascotas
-    $mascotas = Mascota::all(); 
-
-    // Retorna la vista con las mascotas
-    return view('adopciones_exitosas.create', compact('mascotas'));
-}
-
-
+    {
+        $mascotas = Mascota::all();
+        return view('adopciones_exitosas.create', compact('mascotas'));
+    }
 
     // Almacenar una nueva adopción exitosa
     public function store(Request $request)
     {
-        
         $validatedData = $request->validate([
             'mascota_id' => 'required|exists:mascotas,mascota_id',
             'reseña' => 'required|string',
@@ -55,86 +49,85 @@ class AdopcionExitosaController extends Controller
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $imagenPath = null;
-        if ($request->hasFile('imagen')) {
-            $imagenPath = $request->file('imagen')->store('adopciones', 'public');
+        try {
+            $imagenPath = null;
+            if ($request->hasFile('imagen')) {
+                $imagenPath = $request->file('imagen')->store('adopciones', 'public');
+            }
+
+            AdopcionExitosa::create([
+                'mascota_id' => $validatedData['mascota_id'],
+                'user_id' => Auth::id(),
+                'reseña' => $validatedData['reseña'],
+                'fecha_reseña' => $validatedData['fecha_reseña'],
+                'imagen' => $imagenPath,
+                'estado' => true,
+            ]);
+
+            return redirect()->route('adopciones_exitosas.index')->with('success', 'Adopción exitosa registrada correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('adopciones_exitosas.index')->with('error', 'Hubo un problema al registrar la adopción.');
         }
-
-        AdopcionExitosa::create([
-            'mascota_id' => $validatedData['mascota_id'],
-            'user_id' => Auth::id(),
-            'reseña' => $validatedData['reseña'],
-            'fecha_reseña' => $validatedData['fecha_reseña'],
-            'imagen' => $imagenPath,
-            'estado' => true, // Por defecto, las reseñas estarán activas
-        ]);
-
-        return redirect()->route('adopciones_exitosas.index')->with('success', 'Adopción exitosa registrada correctamente.');
     }
 
     public function show($id)
-{
-    // Buscar la adopción exitosa por su ID
-    $adopcion = AdopcionExitosa::with('mascota')->findOrFail($id);
-
-    // Retornar la vista para mostrar los detalles
-    return view('adopciones_exitosas.show', compact('adopcion'));
-}
-
-public function edit($id)
-{
-    // Buscar la adopción exitosa por su ID
-    $adopcion = AdopcionExitosa::findOrFail($id);
-
-    // Retornar la vista para editar la adopción exitosa
-    return view('adopciones_exitosas.edit', compact('adopcion'));
-}
-public function update(Request $request, $id)
-{
-    $validatedData = $request->validate([
-        'reseña' => 'required|string',
-        'fecha_reseña' => 'required|date',
-        'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'estado' => 'required|boolean',
-    ]);
-
-    // Buscar la adopción exitosa por su ID
-    $adopcion = AdopcionExitosa::findOrFail($id);
-
-    // Procesar la imagen si se sube una nueva
-    if ($request->hasFile('imagen')) {
-        $imagenPath = $request->file('imagen')->store('adopciones', 'public');
-        $adopcion->imagen = $imagenPath;
+    {
+        $adopcion = AdopcionExitosa::with('mascota')->findOrFail($id);
+        return view('adopciones_exitosas.show', compact('adopcion'));
     }
 
-    // Actualizar la adopción exitosa
-    $adopcion->update([
-        'reseña' => $validatedData['reseña'],
-        'fecha_reseña' => $validatedData['fecha_reseña'],
-        'estado' => $validatedData['estado'],
-    ]);
+    public function edit($id)
+    {
+        $adopcion = AdopcionExitosa::findOrFail($id);
+        return view('adopciones_exitosas.edit', compact('adopcion'));
+    }
 
-    return redirect()->route('adopciones_exitosas.index')->with('success', 'Adopción exitosa actualizada correctamente.');
-}
-public function destroy($id)
-{
-    // Buscar la adopción exitosa por su ID
-    $adopcion = AdopcionExitosa::findOrFail($id);
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'reseña' => 'required|string',
+            'fecha_reseña' => 'required|date',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'estado' => 'required|boolean',
+        ]);
 
-    // Eliminar la adopción exitosa
-    $adopcion->delete();
+        $adopcion = AdopcionExitosa::findOrFail($id);
 
-    // Redirigir con un mensaje de éxito
-    return redirect()->route('adopciones_exitosas.index')->with('success', 'Adopción exitosa eliminada correctamente.');
-}
-public function mostrarAdopcionExitosa()
-{
-    // Obtiene todas las publicidades, puedes agregar condiciones como 'estado' => activo
-    $adopciones_exitosa = AdopcionExitosa::all();
+        try {
+            if ($request->hasFile('imagen')) {
+                $imagenPath = $request->file('imagen')->store('adopciones', 'public');
+                $adopcion->imagen = $imagenPath;
+            }
 
-    // Retorna la vista y le pasa los datos
-    return view('blog', compact('adopciones_exitosa'));
-}
+            $adopcion->update([
+                'reseña' => $validatedData['reseña'],
+                'fecha_reseña' => $validatedData['fecha_reseña'],
+                'estado' => $validatedData['estado'],
+            ]);
+
+            return redirect()->route('adopciones_exitosas.index')->with('success', 'Adopción exitosa actualizada correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('adopciones_exitosas.index')->with('error', 'Hubo un problema al actualizar la adopción.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        $adopcion = AdopcionExitosa::findOrFail($id);
+
+        try {
+            $adopcion->delete();
+            return redirect()->route('adopciones_exitosas.index')->with('success', 'Adopción exitosa eliminada correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('adopciones_exitosas.index')->with('error', 'Hubo un problema al eliminar la adopción.');
+        }
+    }
+
+    public function mostrarAdopcionExitosa()
+    {
+        $adopciones_exitosa = AdopcionExitosa::all();
+        return view('blog', compact('adopciones_exitosa'));
+    }
 }
 
 

@@ -43,24 +43,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($mascotas as $mascota)
-                            <tr>
-                                <td>{{ $mascota->nombre }}</td>
-                                <td>{{ $mascota->edad }} años</td>
-                                <td>{{ $mascota->sexo }}</td>
-                                <td>{{ $mascota->caracteristicas }}</td>
-                                <td>{{ $mascota->es_venta ? 'Venta' : 'Adopción' }}</td>
-                                <td>
-                                    <a href="{{ route('mascotas.show', $mascota) }}" class="btn btn-info btn-sm">Ver</a>
-                                    <a href="{{ route('mascotas.edit', $mascota) }}" class="btn btn-primary btn-sm">Editar</a>
-                                    <form action="{{ route('mascotas.destroy', $mascota) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('¿Estás seguro?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
+                            @foreach ($mascotas as $mascota)
+                                <tr>
+                                    <td>{{ $mascota->nombre }}</td>
+                                    <td>{{ $mascota->edad }} años</td>
+                                    <td>{{ $mascota->sexo }}</td>
+                                    <td>{{ $mascota->caracteristicas }}</td>
+                                    <td>{{ $mascota->es_venta ? 'Venta' : 'Adopción' }}</td>
+                                    <td>
+                                        <a href="{{ route('mascotas.show', $mascota) }}" class="btn btn-info btn-sm">Ver</a>
+                                        <a href="{{ route('mascotas.edit', $mascota) }}" class="btn btn-primary btn-sm">Editar</a>
+                                        <form action="{{ route('mascotas.destroy', $mascota) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('¿Estás seguro?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

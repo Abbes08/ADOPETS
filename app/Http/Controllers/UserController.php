@@ -10,26 +10,25 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(Request $request)
-{
-    if (Auth::user()->email !== 'adminadopets@gmail.com') {
-        abort(403, 'No tienes permiso para acceder a esta página.');
+    {
+        if (Auth::user()->email !== 'adminadopets@gmail.com') {
+            abort(403, 'No tienes permiso para acceder a esta página.');
+        }
+
+        $search = $request->input('search');
+
+        $users = User::when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%")
+                         ->orWhere('surname', 'like', "%{$search}%")
+                         ->orWhere('email', 'like', "%{$search}%");
+        })->get();
+
+        if ($request->ajax()) {
+            return response()->json($users);
+        }
+
+        return view('users.index', compact('users'));
     }
-
-    $search = $request->input('search');
-
-    $users = User::when($search, function ($query, $search) {
-        return $query->where('name', 'like', "%{$search}%")
-                     ->orWhere('surname', 'like', "%{$search}%")
-                     ->orWhere('email', 'like', "%{$search}%");
-    })->get();
-
-    if ($request->ajax()) {
-        return response()->json($users);
-    }
-
-    return view('users.index', compact('users'));
-}
-
 
     public function activate($id)
     {

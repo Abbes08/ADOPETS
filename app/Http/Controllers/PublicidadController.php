@@ -33,7 +33,6 @@ class PublicidadController extends Controller
         return view('publicidad.index', compact('publicidades'));
     }
     
-    
     public function create()
     {
         // Verificar si el usuario es administrador para ver todos los usuarios o solo el suyo
