@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
 @section('content')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">

@@ -1,42 +1,47 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear Servicio')
+@section('title', 'Crear/Editar Servicio')
 
 @section('content')
-<div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
-    <div class="container" style="max-width: 30%; padding: 0 15px;">
-        <div class="card shadow" style="border-radius: 15px;">
-            <div class="card-header text-center" style="background: linear-gradient(90deg, #a8e063, #56ab2f); border-top-left-radius: 15px; border-top-right-radius: 15px; color: white;">
-                <h3 class="card-title">Crear Nuevo Servicio</h3>
-            </div>
+<div class="container" style="max-width: 700px;">
+    <div class="card shadow" style="border-radius: 15px;">
+        <div class="card-header text-center" style="background: linear-gradient(90deg, #a8e063, #56ab2f); border-top-left-radius: 15px; border-top-right-radius: 15px; color: white;">
+            <h3 class="card-title">{{ isset($servicio) ? 'Editar Servicio' : 'Crear Servicio' }}</h3>
+        </div>
 
-            <div class="card-body">
-                <form action="{{ route('servicio.store') }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="nombre">Nombre del Servicio</label>
-                        <input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" required style="max-width: 400px;">
-                    </div>
+        <div class="card-body">
+            <form action="{{ isset($servicio) ? route('servicio.update', $servicio->id) : route('servicio.store') }}" method="POST">
+                @csrf
+                @if (isset($servicio))
+                    @method('PUT')
+                @endif
 
-                    <div class="form-group">
-                        <label for="descripcion">Descripción</label>
-                        <textarea class="form-control" name="descripcion" style="max-width: 400px; height: 100px;">{{ old('descripcion') }}</textarea>
-                    </div>
+                <!-- Campo Nombre -->
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" class="form-control" value="{{ old('nombre', $servicio->nombre ?? '') }}" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="estado">Estado</label>
-                        <select class="form-control" name="estado" style="max-width: 400px;">
-                            <option value="1" {{ old('estado') == 1 ? 'selected' : '' }}>Activo</option>
-                            <option value="0" {{ old('estado') == 0 ? 'selected' : '' }}>Inactivo</option>
-                        </select>
-                    </div>
+                <!-- Campo Descripción -->
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea name="descripcion" class="form-control" rows="3" required>{{ old('descripcion', $servicio->descripcion ?? '') }}</textarea>
+                </div>
 
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-success" style="border-radius: 20px; padding: 10px 20px;">Crear Servicio</button>
-                        <a href="{{ route('servicio.index') }}" class="btn btn-secondary" style="border-radius: 20px; padding: 10px 20px;">Volver</a> <!-- Botón de volver -->
-                    </div>
-                </form>
-            </div>
+                <!-- Campo Estado (Activo/Inactivo) -->
+                <div class="form-group">
+                    <label for="estado">Estado</label>
+                    <select name="estado" class="form-control">
+                        <option value="1" {{ (old('estado', $servicio->estado ?? '') == 1) ? 'selected' : '' }}>Activo</option>
+                        <option value="0" {{ (old('estado', $servicio->estado ?? '') == 0) ? 'selected' : '' }}>Inactivo</option>
+                    </select>
+                </div>
+
+                <!-- Botón Guardar -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success" style="border-radius: 5px;">{{ isset($servicio) ? 'Actualizar Servicio' : 'Crear Servicio' }}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

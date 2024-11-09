@@ -4,23 +4,26 @@
     <title>Publicidad</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+       <!-- CSS de Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
- 
-    <link rel="stylesheet" href="css/animate.css">
-    
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+<!-- Luego tus otros estilos y fuentes -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/owl.carousel.min.css">
+<link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="css/magnific-popup.css">
+<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="css/jquery.timepicker.css">
+<link rel="stylesheet" href="css/flaticon.css">
+
+<!-- Finalmente, tu archivo personalizado de estilos -->
+<link rel="stylesheet" href="css/style.css">
 
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/style.css">
+<!-- Agregar esto justo antes de cerrar el tag </body> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
 
@@ -34,9 +37,9 @@
 	<div class="collapse navbar-collapse" id="ftco-nav">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item "><a href="{{ route('index') }}" class="nav-link">Home</a></li>
-        <li class="nav-item "><a href="{{ route('about') }}" class="nav-link">Preguntas Frecuentes</a></li>
+     
         <li class="nav-item active"><a href="{{ route('vet') }}" class="nav-link">Publicidad</a></li>
-        <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Servicios</a></li>
+     
         <li class="nav-item"><a href="{{ route('gallery') }}" class="nav-link">Mascotas</a></li>
         <li class="nav-item "><a href="{{ route('blog') }}" class="nav-link">Adopciones Exitosas</a></li>
         <li class="nav-item "><a href="{{ route('contact') }}" class="nav-link">Contactanos</a></li></li>
@@ -59,23 +62,54 @@
 </nav>
 <!-- END nav -->
 
-<!-- resources/views/vet.blade.php -->
-
+<!-- Sección Hero -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('images/bg_2.jpg') }}');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
                 <p class="breadcrumbs mb-2">
-                    <span class="mr-2"><a href="{{ route('index') }}">Home <i class="ion-ios-arrow-forward"></i></a></span>
-                    <span> Apartado de publicidad <i class="ion-ios-arrow-forward"></i></span>
+                    <span class="mr-2"><a href="{{ route('index') }}">Inicio <i class="ion-ios-arrow-forward"></i></a></span>
+                    <span>Apartado de Publicidad <i class="ion-ios-arrow-forward"></i></span>
                 </p>
                 <h1 class="mb-0 bread">¿Deseas crear una publicidad?</h1>
-				<a href="{{ route('publicidad.create') }}" class="btn btn-primary">Has click aquí</a>
+                
+                @guest
+                    <!-- Activar el modal para usuarios no registrados -->
+                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#loginAlertModal" class="btn btn-primary">Has click aquí</a>
+                @else
+                    <!-- Redirigir a la ruta de crear publicidad si el usuario está registrado -->
+                    <a href="{{ route('publicidad.create') }}" class="btn btn-primary">Has click aquí</a>
+                @endguest
+
             </div>
         </div>
     </div>
 </section>
+
+
+
+<!-- Modal para alerta de registro -->
+<div class="modal fade" id="loginAlertModal" tabindex="-1" aria-labelledby="loginAlertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: #e3fcec; color: #155724; border: 2px solid #c3e6cb;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginAlertModalLabel">Atención</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Para crear una publicidad, primero debes estar registrado en el sistema.</p>
+                <p><strong>Por favor, inicia sesión o regístrate para continuar.</strong></p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ route('login') }}" class="btn btn-primary">Iniciar Sesión</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Mostrar lista de publicidades en vet.blade.php -->
 <section class="ftco-section bg-light">
     <div class="container">

@@ -36,9 +36,9 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item active"><a href="{{ route('index') }}" class="nav-link">Home</a></li>
 
-        <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">Preguntas Frecuentes</a></li>
+ 
         <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Publicidad</a></li>
-        <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Servicios</a></li>
+   
         <li class="nav-item"><a href="{{ route('gallery') }}" class="nav-link">Mascotas</a></li>
 		<li class="nav-item "><a href="{{ route('blog') }}" class="nav-link">Adopciones Exitosas</a></li>
         <li class="nav-item "><a href="{{ route('contact') }}" class="nav-link">Contactanos</a></li></li>
@@ -277,7 +277,7 @@
         </div>
     	</div>
     </section>
-
+<!-- 
     <section class="ftco-section testimony-section" style="background-image: url('images/bg_2.jpg');">
     	<div class="overlay"></div>
       <div class="container">
@@ -589,70 +589,55 @@
     	</div>
     </section>
 -->
-    <footer class="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
-						<h2 class="footer-heading">Redes Sociales</h2>
-						<p>Encuéntranos en nuestras redes sociales y se parte de la familia Adopets</p>
-						<ul class="ftco-footer-social p-0">
-              <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="fa fa-twitter"></span></a></li>
-              <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><span class="fa fa-facebook"></span></a></li>
-              <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><span class="fa fa-instagram"></span></a></li>
-            </ul>
-					</div>
-					<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
-						<h2 class="footer-heading">Últimas Noticias</h2>
-						<div class="block-21 mb-4 d-flex">
-              <a class="img mr-4 rounded" style="background-image: url(images/image_1.jpg);"></a>
-              <div class="text">
-                <h3 class="heading"><a href="#">Tengo la mejor mascota, gracias a Adopets</a></h3>
-                <div class="meta">
-                  <div><a href="#"><span class="icon-calendar"></span> April 7, 2020</a></div>
-                  <div><a href="#"><span class="icon-person"></span> Admin01</a></div>
-                  <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                </div>
-              </div>
-            </div>
-            <div class="block-21 mb-4 d-flex">
-              <a class="img mr-4 rounded" style="background-image: url(images/image_2.jpg);"></a>
-              <div class="text">
-                <h3 class="heading"><a href="#">Sam es una mascota increible</a></h3>
-                <div class="meta">
-                  <div><a href="#"><span class="icon-calendar"></span> April 7, 2020</a></div>
-                  <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                  <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                </div>
-              </div>
-            </div>
-					</div>
-					<div class="col-md-6 col-lg-3 pl-lg-5 mb-4 mb-md-0">
-						<h2 class="footer-heading">Links del Sistema</h2>
-						<ul class="list-unstyled">
-              <li><a href="#" class="py-2 d-block">Home</a></li>
-              <li><a href="#" class="py-2 d-block">Preguntas Frecuentes</a></li>
-              <li><a href="#" class="py-2 d-block">Publicidad</a></li>
-              <li><a href="#" class="py-2 d-block">Servicios</a></li>
-              <li><a href="#" class="py-2 d-block">Mascotas</a></li>
-              <li><a href="#" class="py-2 d-block">Adopciones exitosas</a></li>
-			  <li><a href="#" class="py-2 d-block">Contáctanos</a></li>
-            </ul>
-					</div>
-					<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
-						<h2 class="footer-heading">¿Tienes alguna pregunta?</h2>
-						<div class="block-23 mb-3">
-              <ul>
-                <li><span class="icon fa fa-map"></span><span class="text">650 metros suroeste de la Cruz Roja, Nicoya, Guanacaste</span></li>
-                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+506 83868587</span></a></li>
-                <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">adopets@gmail.com</span></a></li>
-              </ul>
-            </div>
-					</div>
-				</div>
-				
-		</footer>
 
-    
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <!-- Redes Sociales -->
+      <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+        <h2 class="footer-heading">Redes Sociales</h2>
+        <p>Encuéntranos en nuestras redes sociales y sé parte de la familia Adopets</p>
+        <ul class="ftco-footer-social p-0">
+          <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="fa fa-twitter"></span></a></li>
+          <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><span class="fa fa-facebook"></span></a></li>
+          <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><span class="fa fa-instagram"></span></a></li>
+        </ul>
+      </div>
+
+      <!-- Links del Sistema -->
+      <div class="col-md-6 col-lg-3 pl-lg-5 mb-4 mb-md-0">
+        <h2 class="footer-heading">Links del Sistema</h2>
+        <ul class="list-unstyled">
+          <li><a href="{{ route('index') }}" class="py-2 d-block">Home</a></li>
+          <li><a href="{{ route('vet') }}" class="py-2 d-block">Publicidad</a></li>
+          <li><a href="{{ route('gallery') }}" class="py-2 d-block">Mascotas</a></li>
+          <li><a href="{{ route('blog') }}" class="py-2 d-block">Adopciones exitosas</a></li>
+          <li><a href="{{ route('contact') }}" class="py-2 d-block">Contáctanos</a></li>
+        </ul>
+      </div>
+
+      <!-- Contacto -->
+      <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+        <h2 class="footer-heading">¿Tienes alguna pregunta?</h2>
+        <div class="block-23 mb-3">
+          <ul>
+            <li><span class="icon fa fa-map"></span><span class="text">650 metros suroeste de la Cruz Roja, Nicoya, Guanacaste</span></li>
+            <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+506 83868587</span></a></li>
+            <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">adopets@gmail.com</span></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Imagen de Mascotas -->
+      <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+  <img src="{{ asset('images/gallery-2.jpg') }}" alt="Imagen de Mascotas" class="img-fluid rounded shadow">
+</div>
+
+    </div>
+  </div>
+</footer>
+
+
   
 
   <!-- loader -->

@@ -9208,6 +9208,13 @@ textarea.form-control {
 .img-wrap .icon-expand:hover {
   background-color: rgba(0, 128, 0, 0.9); /* Cambia ligeramente el color en hover */
 }
+.recent-pet {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 10px;
+  padding: 5px;
+}
+
 
       
 .testimony-section {

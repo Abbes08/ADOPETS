@@ -319,7 +319,10 @@ return [
             'can' => 'manage-blog',
         ],
         
-        ['header' => 'Configuracion de Usuarios'],
+        [
+            'header' => 'Configuración de Usuarios',
+            'can' => 'isAdmin',
+        ],
         [
             'text' => 'Usuarios',
             'icon' => 'fas fa-users',
@@ -328,13 +331,17 @@ return [
                     'text' => 'Gestionar Usuarios',
                     'url' => 'users',
                     'icon' => 'fas fa-user-cog',
+                    'can' => 'isAdmin', // Solo visible para admin
                 ],
-                
             ],
-           
+            'can' => 'isAdmin', // Solo visible para admin
         ],
-       
-        ['header' => 'Configuracion de Servicios'],
+
+        // Configuración de Servicios
+        [
+            'header' => 'Configuración de Servicios',
+            'can' => 'isAdmin',
+        ],
         [
             'text' => 'Servicios',
             'icon' => 'fas fa-clipboard-list',
@@ -343,12 +350,10 @@ return [
                     'text' => 'Gestionar Servicios nuevos',
                     'url' => 'servicio',
                     'icon' => 'fas fa-cogs',
-
-                
+                    'can' => 'isAdmin', // Solo visible para admin
                 ],
-                
             ],
-           
+            'can' => 'isAdmin', // Solo visible para admin
         ],
         [
             'text' => 'Publicidades',

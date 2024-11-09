@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,11 +11,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'surname',
@@ -25,36 +19,28 @@ class User extends Authenticatable
         'address',
         'email',
         'password',
-        'role_id', // Agregado para que sea asignable de forma masiva
+        'role',  // Definido como role en lugar de role_id
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
-    /**
-     * Relación con el modelo Role (un usuario tiene un rol).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function role()
+    // Método auxiliar para verificar roles fácilmente
+    public function isAdmin()
     {
-        return $this->belongsTo(Role::class, 'role_id', 'rol_id');
+        return $this->role === 'admin';
     }
+
+    public function isPremium()
+    {
+        return $this->role === 'premium';
+    }
+    
 }

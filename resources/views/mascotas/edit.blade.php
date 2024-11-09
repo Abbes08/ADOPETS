@@ -62,28 +62,38 @@
                         <textarea name="caracteristicas" class="form-control" required>{{ old('caracteristicas', $mascota->caracteristicas) }}</textarea>
                     </div>
 
-                    <!-- Checkbox para venta -->
-                    <div class="form-group mb-3">
-                        <label for="es_venta">¿Está en venta?</label>
-                        <div class="form-check">
-                            <input type="checkbox" name="es_venta" id="es_venta" value="1" class="form-check-input" {{ old('es_venta', $mascota->es_venta) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="es_venta">Sí</label>
+                    <!-- Mostrar solo a usuarios premium o administrador -->
+                    @if(auth()->user()->role === 'premium' || auth()->user()->email === 'adminadopets@gmail.com')
+                        <!-- Checkbox para venta -->
+                        <div class="form-group mb-3">
+                            <label for="es_venta">¿Está en venta?</label>
+                            <div class="form-check">
+                                <input 
+                                    type="checkbox" 
+                                    name="es_venta" 
+                                    id="es_venta" 
+                                    value="1" 
+                                    class="form-check-input" 
+                                    {{ old('es_venta', $mascota->es_venta) ? 'checked' : '' }}
+                                >
+                                <label class="form-check-label" for="es_venta">Sí</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Campos adicionales solo si es venta -->
-                    <div class="form-group" id="venta_fields" style="{{ old('es_venta', $mascota->es_venta) ? 'display:block;' : 'display:none;' }}">
-                        <div class="form-group row">
-                            <div class="col-md-6 mb-3">
-                                <label for="raza">Raza</label>
-                                <input type="text" name="raza" class="form-control" value="{{ old('raza', $mascota->raza) }}">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="precio">Precio</label>
-                                <input type="number" name="precio" class="form-control" value="{{ old('precio', $mascota->precio) }}">
+                        <!-- Campos adicionales solo si es venta -->
+                        <div class="form-group" id="venta_fields" style="{{ old('es_venta', $mascota->es_venta) ? 'display:block;' : 'display:none;' }}">
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="raza">Raza</label>
+                                    <input type="text" name="raza" class="form-control" value="{{ old('raza', $mascota->raza) }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="precio">Precio</label>
+                                    <input type="number" name="precio" class="form-control" value="{{ old('precio', $mascota->precio) }}">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                     <!-- Subir nuevas imágenes -->
                     <div class="form-group mb-3">

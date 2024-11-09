@@ -9,13 +9,30 @@ use Illuminate\Support\Facades\Auth;
 
 class AdopcionExitosaController extends Controller
 {
-    // Mostrar todas las adopciones exitosas del usuario logueado
-    public function index()
+    public function index(Request $request)
     {
-        $adopciones = AdopcionExitosa::where('user_id', Auth::id())->get();
+        if (Auth::user()->email === 'adminadopets@gmail.com') {
+            // Administrador puede ver todas las adopciones exitosas
+            $query = AdopcionExitosa::query();
+        } else {
+            // Usuarios normales solo ven sus propias adopciones exitosas
+            $query = AdopcionExitosa::where('user_id', Auth::id());
+        }
+    
+        $search = $request->input('search');
+        $adopciones = $query->when($search, function ($query, $search) {
+            return $query->whereHas('mascota', function ($q) use ($search) {
+                $q->where('nombre', 'like', "%{$search}%");
+            })->orWhere('reseña', 'like', "%{$search}%");
+        })->get();
+    
+        if ($request->ajax()) {
+            return response()->json($adopciones);
+        }
+    
         return view('adopciones_exitosas.index', compact('adopciones'));
     }
-
+    
     public function create()
 {
     // Obtiene todas las mascotas

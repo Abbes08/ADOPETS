@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <!-- Card principal -->
-            <div class="card" style="border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f5f9ff; height: 80vh; width: 100%; max-width: 500px; margin-top: 50px;">
+            <div class="card" style="border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f5f9ff; height: 80vh; width: 150%; max-width: 600px; margin-top: 50px;">
 
                 <!-- Encabezado -->
                 <div class="card-header text-center" style="background: linear-gradient(90deg, #28a745, #d4edda); border-top-left-radius: 15px; border-top-right-radius: 15px;">
@@ -128,11 +128,12 @@
                        <div class="row mb-3">
                             <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Tipo de usuario') }}</label>
                             <div class="col-md-6">
-                                <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required style="border: 2px solid #004d40; border-radius: 5px;">
-                                    <option value="" disabled selected>Seleccionar</option>
-                                    <option value="guest" {{ old('role') == 'guest' ? 'selected' : '' }}>Invitado</option>
-                                    <option value="premium" {{ old('role') == 'premium' ? 'selected' : '' }}>Premium</option>
-                                </select>
+                            <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required>
+    <option value="" disabled selected>Seleccionar</option>
+    <option value="guest" {{ old('role') == 'guest' ? 'selected' : '' }}>Invitado</option>
+    <option value="premium" {{ old('role') == 'premium' ? 'selected' : '' }}>Premium</option>
+</select>
+
                                 @error('role')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -140,25 +141,27 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <!-- Botón de registro -->
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-success" style="background-color: #28a745; border: none; border-radius: 5px; padding: 10px 50px;">
-                                    {{ __('Regístrate') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div class="text-center mt-4">
-                        <p>
-                            ¿Ya tienes una cuenta? <a href="{{ route('login') }}" style="color: #28a745;">Inicia sesión</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+<!-- reCAPTCHA -->
+<div class="form-group row mb-3">
+        <div class="col-md-6 offset-md-4">
+            <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}"></div>
+            @error('g-recaptcha-response')
+                <span class="invalid-feedback" style="display: block;">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
     </div>
-</div>
+
+    <!-- Botón de registro -->
+    <div class="row mb-0">
+        <div class="col-md-8 offset-md-4">
+            <button type="submit" class="btn btn-success" style="background-color: #28a745; border: none; border-radius: 5px; padding: 10px 50px;">
+                {{ __('Regístrate') }}
+            </button>
+        </div>
+    </div>
+</form>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @endsection

@@ -2,134 +2,78 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Rol; // Asegúrate de que esté importado correctamente
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Muestra una lista de usuarios.
-     */
-    public function index()
-    {
-        $users = User::all();
-        return view('users.index', compact('users')); // Retorna la vista con la lista de usuarios
-    }
-
-    /**
-     * Muestra el formulario para crear un nuevo usuario.
-     */
-    public function create()
-    {
-        return view('users.create');
-    }
-
-    /**
-     * Almacena un nuevo usuario en la base de datos.
-     */
-    public function store(Request $request)
+    public function index(Request $request)
 {
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'surname' => 'required|string|max:255',
-        'gender' => 'required|string|in:Masculino,Femenino,Otro',
-        'phone' => 'required|string|max:15',
-        'address' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
-        'role' => 'required|string|in:guest,premium', // Validación del rol
-    ]);
+    if (Auth::user()->email !== 'adminadopets@gmail.com') {
+        abort(403, 'No tienes permiso para acceder a esta página.');
+    }
 
-    // Crear el usuario con el rol asignado
-    User::create([
-        'name' => $validatedData['name'],
-        'surname' => $validatedData['surname'],
-        'gender' => $validatedData['gender'],
-        'phone' => $validatedData['phone'],
-        'address' => $validatedData['address'],
-        'email' => $validatedData['email'],
-        'password' => Hash::make($validatedData['password']),
-        'role' => $validatedData['role'], // Asignar el rol
-    ]);
+    $search = $request->input('search');
 
-    return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
+    $users = User::when($search, function ($query, $search) {
+        return $query->where('name', 'like', "%{$search}%")
+                     ->orWhere('surname', 'like', "%{$search}%")
+                     ->orWhere('email', 'like', "%{$search}%");
+    })->get();
+
+    if ($request->ajax()) {
+        return response()->json($users);
+    }
+
+    return view('users.index', compact('users'));
 }
 
 
-    /**
-     * Muestra los detalles de un usuario específico.
-     */
-    public function show($id)
+    public function activate($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
-    }
-
-    /**
-     * Muestra el formulario para editar un usuario.
-     */
-    public function edit($id)
-    {
-        $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
-    }
-
-    /**
-     * Actualiza un usuario específico.
-     */
-    public function update(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'surname' => 'required|string|max:255',
-            'gender' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'address' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'.$id,
-        ]);
-
-        $user = User::findOrFail($id);
-        $user->update($validatedData);
-
-        return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente.');
-    }
-
-    /**
-     * Elimina un usuario específico.
-     */
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.');
-    }
-
-    /**
-     * Muestra el formulario para asignar un rol a un usuario.
-     */
-    public function showAssignRoleForm($userId)
-    {
-        $user = User::findOrFail($userId);
-        $roles = Rol::all(); // Obtenemos todos los roles disponibles desde el modelo Rol
-
-        return view('users.assign_role', compact('user', 'roles')); // Enviamos los roles y el usuario a la vista
-    }
-
-    /**
-     * Asigna un rol a un usuario.
-     */
-    public function assignRole(Request $request, $userId)
-    {
-        $user = User::findOrFail($userId);
-        $role = Rol::findOrFail($request->input('role_id')); // Usamos Rol en lugar de Role
-
-        // Asocia el rol al usuario
-        $user->role()->associate($role);
+        $user->is_active = true;
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'Rol asignado correctamente.');
+        return redirect()->route('users.index')->with('success', 'Usuario habilitado correctamente.');
+    }
+
+    public function deactivate($id)
+    {
+        $user = User::findOrFail($id);
+        $user->is_active = false;
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'Usuario deshabilitado correctamente.');
+    }
+
+    public function approvePremiumUser($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->role === 'premium') {
+            $user->premium_approved = true;
+            $user->save();
+
+            return redirect()->route('users.index')->with('success', 'Usuario premium aprobado correctamente.');
+        }
+
+        return redirect()->route('users.index')->with('error', 'No se pudo aprobar el usuario premium.');
+    }
+
+    public function disapprovePremiumUser($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->role === 'premium') {
+            $user->premium_approved = false;
+            $user->save();
+
+            return redirect()->route('users.index')->with('success', 'Usuario premium desaprobado correctamente.');
+        }
+
+        return redirect()->route('users.index')->with('error', 'No se pudo desaprobar el usuario premium.');
     }
 }

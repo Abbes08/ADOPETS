@@ -1,134 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>Adopción Exitosa</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
+    <!-- CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
- 
     <link rel="stylesheet" href="css/animate.css">
-    
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
-
-
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
-
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
+</head>
+<body>
 
- 
-		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-    <a class="navbar-brand" href="{{ route('index') }}"><span class="flaticon-pawprint-1 mr-2"></span>Adopets</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="fa fa-bars"></span> Menu
-    </button>
-	<div class="collapse navbar-collapse" id="ftco-nav">
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item "><a href="{{ route('index') }}" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">Preguntas Frecuentes</a></li>
-        <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Publicidad</a></li>
-        <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Servicios</a></li>
-        <li class="nav-item "><a href="{{ route('gallery') }}" class="nav-link">Mascotas</a></li>
-        
-        <li class="nav-item active"><a href="{{ route('blog') }}" class="nav-link">Adopciones Exitosas</a></li>
-        <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contactanos</a></li></li>
-		@auth
-    <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">admin</a></li>
-@endauth
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="{{ route('index') }}"><span class="flaticon-pawprint-1 mr-2"></span>Adopets</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="{{ route('index') }}" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Publicidad</a></li>
+                    <li class="nav-item"><a href="{{ route('gallery') }}" class="nav-link">Mascotas</a></li>
+                    <li class="nav-item active"><a href="{{ route('blog') }}" class="nav-link">Adopciones Exitosas</a></li>
+                    <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contactanos</a></li>
+                    @auth
+                        <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">admin</a></li>
+                    @endauth
+                    @guest
+                        <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+                        @if (Route::has('register'))
+                            <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Registrarse</a></li>
+                        @endif
+                    @endguest
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-@guest
-    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
-    @if (Route::has('register'))
-        <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Registrate</a></li>
-    @endif
-@endguest
+    <!-- Hero Section with Modal Trigger -->
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('images/bg_2.jpg') }}');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-end">
+                <div class="col-md-9 ftco-animate pb-5">
+                    <p class="breadcrumbs mb-2">
+                        <span class="mr-2"><a href="{{ route('index') }}">Inicio <i class="ion-ios-arrow-forward"></i></a></span>
+                        <span>Apartado de Adopciones Exitosas <i class="ion-ios-arrow-forward"></i></span>
+                    </p>
+                    <h1 class="mb-0 bread">¿Deseas ingresar una Adopción Exitosa?</h1>
 
+                    @guest
+                        <!-- Trigger modal for guests -->
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#loginAlertModal" class="btn btn-primary">Has click aquí</a>
+                    @else
+                        <!-- Redirect to create route for authenticated users -->
+                        <a href="{{ route('adopciones_exitosas.create') }}" class="btn btn-primary">Has click aquí</a>
+                    @endguest
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </ul>
-</div>
-
-
-</div>
-</nav>
-
-<section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('images/bg_2.jpg') }}');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-            <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="{{ url('/') }}">Home<i class="ion-ios-arrow-forward"></i></a></span> <span>Aparatado de Adopciones Exitosas<i class="ion-ios-arrow-forward"></i></span></p>
-                <h1 class="mb-0 bread">¿Deseas ingresar una Adopcion Exitosa?</h1>
-                <a href="{{ route('adopciones_exitosas.create') }}" class="btn btn-primary">Has click aquí</a>
+    <!-- Modal for Login Alert -->
+    <div class="modal fade" id="loginAlertModal" tabindex="-1" aria-labelledby="loginAlertModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background-color: #e3fcec; color: #155724; border: 2px solid #c3e6cb;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginAlertModalLabel">Atención</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>Para ingresar una adopción exitosa, primero debes estar registrado en el sistema.</p>
+                    <p><strong>Por favor, inicia sesión o regístrate para continuar.</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('login') }}" class="btn btn-primary">Iniciar Sesión</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
-</section>
-<!-- Continuación de la sección -->
-<section class="ftco-section">
-    <div class="container">
-        <div class="row">
-        @forelse ($adopciones_exitosa as $adopcion)
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20 rounded" style="background-image: url('{{ Storage::url($adopcion->imagen) }}');">
-                        </a>
-                        <div class="text p-4">
-                            <div class="meta mb-2">
-                                <div><a href="#">{{ $adopcion->fecha_reseña->format('d-m-Y') }}</a></div> <!-- Formato de fecha -->
-                                <div><a href="#">{{ $adopcion->mascota->nombre }}</a></div>
-                                <div>
-                                    <a href="#" class="meta-chat">
-                                        <span class="fa fa-heart"></span> 
-                                    </a>
+
+    <!-- Section for Successful Adoptions -->
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                @forelse ($adopciones_exitosa as $adopcion)
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="blog-entry align-self-stretch">
+                            <a href="blog-single.html" class="block-20 rounded" style="background-image: url('{{ Storage::url($adopcion->imagen) }}');"></a>
+                            <div class="text p-4">
+                                <div class="meta mb-2">
+                                    <div><a href="#">{{ $adopcion->fecha_reseña->format('d-m-Y') }}</a></div>
+                                    <div><a href="#">{{ $adopcion->mascota->nombre }}</a></div>
+                                    <div><a href="#" class="meta-chat"><span class="fa fa-heart"></span></a></div>
                                 </div>
+                                <h3 class="heading"><a href="#">{{ $adopcion->reseña }}</a></h3>
                             </div>
-                            <h3 class="heading"><a href="#">{{ $adopcion->reseña }}</a></h3>
                         </div>
                     </div>
-                </div>
                 @empty
-                <div class="col-12 text-center">
-                    <p>No hay adopciones exitosas registradas en este momento.</p>
-                </div>
-            @endforelse
+                    <div class="col-12 text-center">
+                        <p>No hay adopciones exitosas registradas en este momento.</p>
+                    </div>
+                @endforelse
+            </div>
         </div>
+    </section>
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen">
+        <svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/>
+        </svg>
     </div>
-</section>
 
-
-
-
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
-
-
-    
-  </body>
+    <!-- Scripts JS -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> <!-- Corrected JS import -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/jquery.timepicker.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
 </html>

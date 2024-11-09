@@ -46,7 +46,7 @@
 
                         <!-- Precio (opcional) -->
                         <div class="col-md-6 form-group">
-                            <label for="precio">Precio</label>
+                            <label for="precio">Precio (Opcional)</label>
                             <input type="number" step="0.01" class="form-control @error('precio') is-invalid @enderror" id="precio" name="precio" value="{{ old('precio', $publicidad->precio ?? '') }}">
                             @error('precio')
                                 <div class="invalid-feedback">{{ $message }}</div>

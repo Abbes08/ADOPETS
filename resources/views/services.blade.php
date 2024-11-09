@@ -34,9 +34,8 @@
 	<div class="collapse navbar-collapse" id="ftco-nav">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item "><a href="{{ route('index') }}" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">Preguntas Frecuentes</a></li>
+        
         <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Publicidad</a></li>
-        <li class="nav-item active"><a href="{{ route('services') }}" class="nav-link">Servicios</a></li>
         <li class="nav-item"><a href="{{ route('gallery') }}" class="nav-link">Mascotas</a></li>
         <li class="nav-item "><a href="{{ route('blog') }}" class="nav-link">Adopciones Exitosas</a></li>
         <li class="nav-item "><a href="{{ route('contact') }}" class="nav-link">Contactanos</a></li></li>
@@ -69,7 +68,6 @@
         </div>
     </div>
 </section>
-
 <section class="ftco-section ftco-no-pt ftco-no-pb">
     <div class="container">
         <div class="row d-flex no-gutters">
@@ -82,10 +80,10 @@
                     <h2 class="mb-4">Lo que ofrecemos</h2>
                 </div>
                 <div class="row">
-                    @foreach ($servicio as $servicio)
+                    @foreach ($servicio as $servicio) <!-- Usamos la variable $servicios pasada desde el controlador -->
                         <div class="col-md-6 services-2 w-100 d-flex">
                             <div class="icon d-flex align-items-center justify-content-center">
-                                <!-- Aquí puedes cambiar el icono según el tipo de servicio -->
+                                <!-- Icono según el tipo de servicio -->
                                 <span class="flaticon-veterinarian"></span>
                             </div>
                             <div class="text pl-3">
@@ -99,6 +97,10 @@
         </div>
     </div>
 </section>
+
+
+
+
 
 <!-- 
     <section class="ftco-section bg-light">

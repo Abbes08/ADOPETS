@@ -17,13 +17,22 @@
                     </div>
                 @endif
 
-                <div class="text-right mb-3">
+                <!-- Sección de búsqueda -->
+                <div class="d-flex justify-content-between mb-3">
                     <a href="{{ route('users.create') }}" class="btn btn-success" style="border-radius: 20px; padding: 10px 20px;">Crear Usuario</a>
+                    <div class="input-group" style="width: 300px;">
+                        <input type="text" id="search" placeholder="Buscar usuario..." class="form-control">
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-white border-0">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Tabla con scroll -->
+                <!-- Contenedor de la tabla de usuarios -->
                 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-                    <table class="table table-bordered table-striped table-hover">
+                    <table class="table table-bordered table-striped table-hover" id="users-table">
                         <thead class="thead-light">
                             <tr>
                                 <th>Nombre</th>
@@ -32,7 +41,8 @@
                                 <th>Teléfono</th>
                                 <th>Dirección</th>
                                 <th>Correo Electrónico</th>
-                                <th>Acciones</th>
+                                <th>Habilitar/Deshabilitar</th>
+                                <th>Aprobar/Desaprobar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,24 +54,94 @@
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->address }}</td>
                                     <td>{{ $user->email }}</td>
+
                                     <td>
-                                        <a href="{{ route('users.edit', $user) }}" class="btn btn-primary btn-sm" style="border-radius: 5px;">Editar</a>
-                                        
-                                        <form action="{{ route('users.destroy', $user) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de eliminar este usuario?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" style="border-radius: 5px;">Eliminar</button>
-                                        </form>
+                                        @if ($user->is_active)
+                                            <form action="{{ route('users.deactivate', $user->id) }}" method="POST" style="display: inline-block;">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-danger btn-sm">Deshabilitar</button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('users.activate', $user->id) }}" method="POST" style="display: inline-block;">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-success btn-sm">Habilitar</button>
+                                            </form>
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if ($user->role === 'premium')
+                                            @if ($user->premium_approved)
+                                                <form action="{{ route('users.disapprovePremium', $user->id) }}" method="POST" style="display: inline-block;">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-warning btn-sm">Desaprobar Premium</button>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('users.approvePremium', $user->id) }}" method="POST" style="display: inline-block;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary btn-sm">Aprobar Premium</button>
+                                                </form>
+                                            @endif
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-
-            
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#search').on('keyup', function() {
+            var query = $(this).val();
+            $.ajax({
+                url: "{{ route('users.index') }}",
+                type: "GET",
+                data: { search: query },
+                success: function(users) {
+                    let rows = '';
+                    users.forEach(user => {
+                        rows += `
+                            <tr>
+                                <td>${user.name}</td>
+                                <td>${user.surname}</td>
+                                <td>${user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}</td>
+                                <td>${user.phone}</td>
+                                <td>${user.address}</td>
+                                <td>${user.email}</td>
+                                <td>
+                                    <form action="/users/${user.id}/${user.is_active ? 'deactivate' : 'activate'}" method="POST" style="display: inline-block;">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn ${user.is_active ? 'btn-danger' : 'btn-success'} btn-sm">
+                                            ${user.is_active ? 'Deshabilitar' : 'Habilitar'}
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    ${user.role === 'premium' ? `
+                                        <form action="/users/${user.id}/${user.premium_approved ? 'disapprovePremium' : 'approvePremium'}" method="POST" style="display: inline-block;">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn ${user.premium_approved ? 'btn-warning' : 'btn-primary'} btn-sm">
+                                                ${user.premium_approved ? 'Desaprobar Premium' : 'Aprobar Premium'}
+                                            </button>
+                                        </form>` : ''}
+                                </td>
+                            </tr>`;
+                    });
+                    $('#users-table tbody').html(rows);
+                }
+            });
+        });
+    });
+</script>
 @stop

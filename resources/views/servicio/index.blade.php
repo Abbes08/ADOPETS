@@ -17,15 +17,24 @@
                     </div>
                 @endif
 
-                <div class="text-right mb-3">
+                <!-- Botón Crear Servicio y barra de búsqueda -->
+                <div class="d-flex justify-content-between mb-3">
                     <a href="{{ route('servicio.create') }}" class="btn btn-success" style="border-radius: 20px; padding: 10px 20px;">Crear Servicio</a>
+                    <div class="input-group" style="width: 300px;">
+                        <input type="text" id="search" placeholder="Buscar servicio..." class="form-control">
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-white border-0">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                <!-- Tabla de Servicios -->
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;" id="table-container">
                     <table class="table table-bordered table-striped table-hover">
                         <thead class="thead-light">
                             <tr>
-                              
                                 <th>Nombre</th>
                                 <th>Descripción</th>
                                 <th>Estado</th>
@@ -35,7 +44,7 @@
                         <tbody>
                             @foreach ($servicios as $servicio)
                                 <tr>
-                                   <td>{{ $servicio->nombre }}</td>
+                                    <td>{{ $servicio->nombre }}</td>
                                     <td>{{ $servicio->descripcion }}</td>
                                     <td>
                                         <span class="badge badge-{{ $servicio->estado ? 'success' : 'secondary' }}">
@@ -55,10 +64,46 @@
                         </tbody>
                     </table>
                 </div>
-
-                
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#search').on('keyup', function() {
+            var query = $(this).val();
+            $.ajax({
+                url: "{{ route('servicio.index') }}",
+                type: "GET",
+                data: { search: query },
+                success: function(servicios) {
+                    let rows = '';
+                    servicios.forEach(servicio => {
+                        rows += `
+                            <tr>
+                                <td>${servicio.nombre}</td>
+                                <td>${servicio.descripcion}</td>
+                                <td>
+                                    <span class="badge badge-${servicio.estado ? 'success' : 'secondary'}">
+                                        ${servicio.estado ? 'Activo' : 'Inactivo'}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="/servicio/${servicio.id}/edit" class="btn btn-primary btn-sm" style="border-radius: 5px;">Editar</a>
+                                    <form action="/servicio/${servicio.id}" method="POST" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" style="border-radius: 5px;">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>`;
+                    });
+                    $('#table-container tbody').html(rows);
+                }
+            });
+        });
+    });
+</script>
 @stop

@@ -59,52 +59,42 @@
                         <textarea name="caracteristicas" class="form-control" required>{{ old('caracteristicas') }}</textarea>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="es_venta">¿Está en venta?</label>
-                        <div class="form-check">
-                            <input type="checkbox" name="es_venta" id="es_venta" value="1" class="form-check-input" {{ old('es_venta') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="es_venta">Sí</label>
+                    <!-- Campo de opción de venta - Solo visible para usuarios premium o administrador -->
+                    @if(auth()->user()->role === 'premium' || auth()->user()->email === 'adminadopets@gmail.com')
+                        <div class="form-group mb-3">
+                            <label for="es_venta">¿Está en venta?</label>
+                            <div class="form-check">
+                                <input 
+                                    type="checkbox" 
+                                    name="es_venta" 
+                                    id="es_venta" 
+                                    value="1" 
+                                    class="form-check-input" 
+                                    {{ old('es_venta') ? 'checked' : '' }}
+                                >
+                                <label class="form-check-label" for="es_venta">Sí</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group" id="venta_fields" style="{{ old('es_venta') ? 'display:block;' : 'display:none;' }}">
-                        <div class="form-group row">
-                            <div class="col-md-6 mb-3">
-                                <label for="raza">Raza</label>
-                                <input type="text" name="raza" class="form-control" value="{{ old('raza') }}">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="precio">Precio</label>
-                                <input type="number" name="precio" class="form-control" value="{{ old('precio') }}">
+                        <!-- Campos adicionales para venta -->
+                        <div class="form-group" id="venta_fields" style="{{ old('es_venta') ? 'display:block;' : 'display:none;' }}">
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="raza">Raza</label>
+                                    <input type="text" name="raza" class="form-control" value="{{ old('raza') }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="precio">Precio</label>
+                                    <input type="number" name="precio" class="form-control" value="{{ old('precio') }}">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div class="form-group mb-3">
                         <label for="fotos">Subir nuevas imágenes</label>
                         <input type="file" name="fotos[]" class="form-control" multiple accept="image/*" id="new_images">
                     </div>
-
-                    @if(isset($mascota))
-                    <div class="form-group mb-3">
-                        <label>Imágenes actuales</label>
-                        <div class="row" id="current_images">
-                            @foreach($mascota->fotos as $foto)
-                                <div class="col-md-3 mb-3">
-                                    <img src="{{ asset('storage/' . $foto->ruta) }}" class="img-thumbnail" alt="Imagen de la mascota" width="150">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="eliminar_fotos[]" value="{{ $foto->id }}">
-                                        <label class="form-check-label">
-                                            Eliminar esta imagen
-                                        </label>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-
-                    <div id="new_images_preview" class="row mt-2"></div>
 
                     <button type="submit" class="btn btn-success btn-block mt-3" style="border-radius: 20px; padding: 10px 20px;">Registrar Mascota</button>
                 </form>
@@ -133,9 +123,7 @@
             reader.onload = function(e) {
                 const div = document.createElement('div');
                 div.classList.add('col-md-3', 'mb-3');
-                div.innerHTML = `
-                    <img src="${e.target.result}" class="img-thumbnail" alt="Vista previa" width="150">
-                `;
+                div.innerHTML = `<img src="${e.target.result}" class="img-thumbnail" alt="Vista previa" width="150">`;
                 previewContainer.appendChild(div);
             }
             reader.readAsDataURL(file);

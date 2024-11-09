@@ -20,9 +20,20 @@ use App\Http\Controllers\TransaccionController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::middleware(['auth', 'checkRole:admin,premium'])->group(function () {
+    Route::resource('publicidad', PublicidadController::class);
+});
+
+
 Route::middleware(['auth'])->group(function () {
     Route::resource('mascotas', MascotaController::class);
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('servicio', ServicioController::class);
+});
+
 
 Route::get('/', function () {
     return view('index');
@@ -66,6 +77,12 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->group(function () {
     Route::resource('adopciones_exitosas', AdopcionExitosaController::class);
 });
+Route::middleware(['auth', 'check.user.status'])->group(function () {
+    // Rutas protegidas que requieren autenticación
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    // otras rutas protegidas
+});
+
 
 //CRUD USUARIO
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -74,6 +91,10 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::patch('/users/{id}/activate', [UserController::class, 'activate'])->name('users.activate');
+Route::post('/users/{id}/approve', [UserController::class, 'approvePremiumUser'])->name('users.approvePremium');
+Route::patch('users/{id}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
+Route::patch('users/{id}/disapprovePremium', [UserController::class, 'disapprovePremiumUser'])->name('users.disapprovePremium');
 
 // Rutas para el CRUD de Publicidad
 Route::get('/publicidad', [PublicidadController::class, 'index'])->name('publicidad.index');
@@ -125,5 +146,6 @@ Route::get('/gallery', [MascotaController::class, 'mostrarMascotas'])->name('gal
 Route::get('/mascotas/detalle/{mascota_id}', [MascotaController::class, 'detalle'])->name('detalleMascota');
 Route::get('/mascotas/{mascota}', [MascotaController::class, 'show'])->name('mascotas.show');
 
+Route::get('/services', [ServicioController::class, 'showServicios'])->name('services');
 
 

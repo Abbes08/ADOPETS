@@ -34,9 +34,9 @@
 	<div class="collapse navbar-collapse" id="ftco-nav">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item "><a href="{{ route('index') }}" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">Preguntas Frecuentes</a></li>
+
         <li class="nav-item"><a href="{{ route('vet') }}" class="nav-link">Publicidad</a></li>
-        <li class="nav-item"><a href="{{ route('services') }}" class="nav-link">Servicios</a></li>
+      
         <li class="nav-item "><a href="{{ route('gallery') }}" class="nav-link">Mascotas</a></li>
         
         <li class="nav-item "><a href="{{ route('blog') }}" class="nav-link">Adopciones Exitosas</a></li>
@@ -113,7 +113,7 @@
 				        			<span class="fa fa-paper-plane"></span>
 				        		</div>
 				        		<div class="text">
-					            <p><span>Correo eléctronico:</span> <a href="mailto:info@yoursite.com">adopets@gmail.com</a></p>
+					            <p><span>Correo eléctronico:</span> <a href="contactoadopets@gmail.com">contactoadopets@gmail.com</a></p>
 					          </div>
 				          </div>
 								</div>
@@ -159,11 +159,14 @@
 													</div>
 												</div>
 												<div class="col-md-12">
-													<div class="form-group">
-														<input type="submit" value="Enviar Mensaje" class="btn btn-primary">
-														<div class="submitting"></div>
-													</div>
-												</div>
+    <div class="form-group">
+        <input type="submit" value="Enviar Mensaje" class="btn btn-primary">
+    </div>
+</div>
+<div id="success-message" class="text-success mt-3" style="display: none;">
+    Tu mensaje ha sido enviado con éxito.
+</div>
+
 											</div>
 										</form>
 									</div>

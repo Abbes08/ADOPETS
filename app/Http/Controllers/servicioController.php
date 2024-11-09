@@ -4,14 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServicioController extends Controller
 {
-    public function index()
-    {
-        $servicios = Servicio::all();
-        return view('servicio.index', compact('servicios'));
+    public function index(Request $request)
+{
+    // Solo permitir acceso al administrador
+    if (Auth::user()->email !== 'adminadopets@gmail.com') {
+        abort(403, 'No tienes permiso para acceder a esta página.');
     }
+
+    $search = $request->input('search');
+
+    $servicios = Servicio::when($search, function ($query, $search) {
+        return $query->where('nombre', 'like', "%{$search}%")
+                     ->orWhere('descripcion', 'like', "%{$search}%");
+    })->get();
+
+    if ($request->ajax()) {
+        return response()->json($servicios);
+    }
+
+    return view('servicio.index', compact('servicios'));
+}
+
+
+
+  
 
     public function create()
     {
@@ -66,4 +86,10 @@ class ServicioController extends Controller
         // Retorna la vista y le pasa los datos
         return view('services', compact('servicio'));
     }
+    public function showServicios()
+{
+    $servicio = Servicio::where('estado', true)->get(); // Solo selecciona los servicios activos
+    return view('services', compact('servicio'));
+}
+
 }
