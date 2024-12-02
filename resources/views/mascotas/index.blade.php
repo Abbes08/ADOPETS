@@ -12,10 +12,9 @@
             <div class="card-body">
                 <!-- Sección de búsqueda y botón Registrar Nueva Mascota -->
                 <div class="d-flex justify-content-between mb-3">
-                    <!-- Botón "Registrar Nueva Mascota" alineado a la izquierda -->
                     <a href="{{ route('mascotas.create') }}" class="btn btn-success" style="border-radius: 20px; padding: 10px 20px;">Registrar Nueva Mascota</a>
 
-                    <!-- Cuadro de búsqueda alineado a la derecha -->
+                    <!-- Cuadro de búsqueda -->
                     <div class="input-group" style="width: 300px;">
                         <input type="text" id="search" placeholder="Buscar mascota..." class="form-control">
                         <div class="input-group-append">
@@ -43,26 +42,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($mascotas as $mascota)
+                            @forelse ($mascotas as $mascota)
                                 <tr>
                                     <td>{{ $mascota->nombre }}</td>
                                     <td>{{ $mascota->edad }} años</td>
                                     <td>{{ $mascota->sexo }}</td>
                                     <td>{{ $mascota->caracteristicas }}</td>
-                                    <td>{{ $mascota->es_venta ? 'Venta' : 'Adopción' }}</td>
                                     <td>
-                                        <a href="{{ route('mascotas.show', $mascota) }}" class="btn btn-info btn-sm">Ver</a>
-                                        <a href="{{ route('mascotas.edit', $mascota) }}" class="btn btn-primary btn-sm">Editar</a>
-                                        <form action="{{ route('mascotas.destroy', $mascota) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('¿Estás seguro?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                        </form>
+                                        <span class="badge badge-{{ $mascota->activo ? 'success' : 'secondary' }}">
+                                            {{ $mascota->activo ? 'Activo' : 'Inactivo' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('mascotas.show', $mascota) }}" class="btn btn-info btn-sm" style="border-radius: 5px;">Ver</a>
+                                        <a href="{{ route('mascotas.edit', $mascota) }}" class="btn btn-primary btn-sm" style="border-radius: 5px;">Editar</a>
+                                        <button class="btn btn-danger btn-sm" style="border-radius: 5px;" onclick="confirmDelete('{{ route('mascotas.destroy', $mascota) }}')">Eliminar</button>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center">No hay mascotas registradas en este momento.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
+
+                    <!-- Enlaces de paginación -->
+                    <div class="d-flex justify-content-center mt-3" id="pagination-links">
+                        {{ $mascotas->links() }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,6 +78,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
         $('#search').on('keyup', function() {
@@ -78,35 +87,56 @@
                 url: "{{ route('mascotas.index') }}",
                 type: "GET",
                 data: { search: query },
-                success: function(mascotas) {
+                success: function(data) {
                     let rows = '';
-                    if (mascotas.length > 0) {
-                        mascotas.forEach(mascota => {
-                            rows += `
-                                <tr>
-                                    <td>${mascota.nombre}</td>
-                                    <td>${mascota.edad} años</td>
-                                    <td>${mascota.sexo}</td>
-                                    <td>${mascota.caracteristicas}</td>
-                                    <td>${mascota.es_venta ? 'Venta' : 'Adopción'}</td>
-                                    <td>
-                                        <a href="/mascotas/${mascota.id}" class="btn btn-info btn-sm">Ver</a>
-                                        <a href="/mascotas/${mascota.id}/edit" class="btn btn-primary btn-sm">Editar</a>
-                                        <form action="/mascotas/${mascota.id}" method="POST" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                        </form>
-                                    </td>
-                                </tr>`;
-                        });
-                    } else {
-                        rows = `<tr><td colspan="6" class="text-center">No se encontraron resultados.</td></tr>`;
-                    }
+                    data.mascotas.data.forEach(mascota => {
+                        rows += `
+                            <tr>
+                                <td>${mascota.nombre}</td>
+                                <td>${mascota.edad} años</td>
+                                <td>${mascota.sexo}</td>
+                                <td>${mascota.caracteristicas}</td>
+                                <td>
+                                    <span class="badge badge-${mascota.activo ? 'success' : 'secondary'}">
+                                        ${mascota.activo ? 'Activo' : 'Inactivo'}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="/mascotas/${mascota.id}" class="btn btn-info btn-sm" style="border-radius: 5px;">Ver</a>
+                                    <a href="/mascotas/${mascota.id}/edit" class="btn btn-primary btn-sm" style="border-radius: 5px;">Editar</a>
+                                    <button class="btn btn-danger btn-sm" style="border-radius: 5px;" onclick="confirmDelete('/mascotas/${mascota.id}')">Eliminar</button>
+                                </td>
+                            </tr>`;
+                    });
+
+                    // Actualizar tabla y paginación
                     $('#table-container tbody').html(rows);
+                    $('#pagination-links').html(data.links);
                 }
             });
         });
     });
+
+    function confirmDelete(url) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let form = document.createElement('form');
+                form.action = url;
+                form.method = 'POST';
+                form.innerHTML = '@csrf @method("DELETE")';
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
 </script>
 @endsection

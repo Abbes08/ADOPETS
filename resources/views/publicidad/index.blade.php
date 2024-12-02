@@ -52,10 +52,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($publicidades as $publicidad)
+                                @forelse($publicidades as $publicidad)
                                     <tr>
                                         <td>{{ $publicidad->nombre }}</td>
-                                        <td>${{ number_format($publicidad->precio, 2) }}</td>
+                                        <td>
+    @if($publicidad->precio)
+        ${{ number_format($publicidad->precio, 2) }}
+    @else
+        <span class="text-muted">Gratuito</span>
+    @endif
+</td>
+
                                         <td>{{ $publicidad->descripcion }}</td>
                                         <td>{{ $publicidad->telefono }}</td>
                                         <td>{{ $publicidad->fechaInicio }}</td>
@@ -74,14 +81,14 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('publicidad.edit', $publicidad->id) }}" class="btn btn-primary btn-sm" style="border-radius: 5px;">Editar</a>
-                                            <form action="{{ route('publicidad.destroy', $publicidad->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de eliminar esta publicidad?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" style="border-radius: 5px;">Eliminar</button>
-                                            </form>
+                                            <button class="btn btn-danger btn-sm" style="border-radius: 5px;" onclick="confirmDelete('{{ route('publicidad.destroy', $publicidad->id) }}')">Eliminar</button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="9" class="text-center">No hay publicidades registradas en este momento.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -123,6 +130,7 @@
         });
     });
 
+    // Confirmación de eliminación
     function confirmDelete(url) {
         Swal.fire({
             title: '¿Estás seguro?',

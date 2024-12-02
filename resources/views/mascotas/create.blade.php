@@ -91,6 +91,17 @@
                         </div>
                     @endif
 
+                    <!-- Campo Estado: Activo/Inactivo, visible solo para administrador -->
+                    @if(auth()->user()->email === 'adminadopets@gmail.com')
+                        <div class="form-group mb-3">
+                            <label for="activo">Estado</label>
+                            <select name="activo" class="form-control">
+                                <option value="1" {{ old('activo', 1) == 1 ? 'selected' : '' }}>Activo</option>
+                                <option value="0" {{ old('activo', 1) == 0 ? 'selected' : '' }}>Inactivo</option>
+                            </select>
+                        </div>
+                    @endif
+
                     <div class="form-group mb-3">
                         <label for="fotos">Subir nuevas imágenes</label>
                         <input type="file" name="fotos[]" class="form-control" multiple accept="image/*" id="new_images">

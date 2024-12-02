@@ -18,7 +18,7 @@ class PublicidadController extends Controller
             // Los usuarios normales solo ven sus propias publicidades
             $query = Publicidad::where('user_id', Auth::id());
         }
-    
+
         // Filtrar por término de búsqueda
         if ($request->has('search')) {
             $query->where(function ($q) use ($request) {
@@ -27,12 +27,12 @@ class PublicidadController extends Controller
                   ->orWhere('telefono', 'like', '%' . $request->search . '%');
             });
         }
-    
+
         $publicidades = $query->paginate(10);
-    
+
         return view('publicidad.index', compact('publicidades'));
     }
-    
+
     public function create()
     {
         // Verificar si el usuario es administrador para ver todos los usuarios o solo el suyo
@@ -58,26 +58,30 @@ class PublicidadController extends Controller
             'estado' => 'in:activo,inactivo',
         ]);
 
-        // Manejo de la imagen
-        $imagenPath = null;
-        if ($request->hasFile('imagen')) {
-            $imagenPath = $request->file('imagen')->store('publicidades', 'public');
+        try {
+            // Manejo de la imagen
+            $imagenPath = null;
+            if ($request->hasFile('imagen')) {
+                $imagenPath = $request->file('imagen')->store('publicidades', 'public');
+            }
+
+            // Crear publicidad
+            Publicidad::create([
+                'nombre' => $request->nombre,
+                'precio' => $request->precio,
+                'descripcion' => $request->descripcion,
+                'telefono' => $request->telefono,
+                'fechaInicio' => $request->fechaInicio,
+                'fechaFinal' => $request->fechaFinal,
+                'user_id' => $request->user_id,
+                'imagen' => $imagenPath,
+                'estado' => $request->estado ?? 'activo',
+            ]);
+
+            return redirect()->route('publicidad.index')->with('success', 'Publicidad creada correctamente');
+        } catch (\Exception $e) {
+            return redirect()->route('publicidad.index')->with('error', 'Hubo un problema al crear la publicidad');
         }
-
-        // Crear publicidad
-        Publicidad::create([
-            'nombre' => $request->nombre,
-            'precio' => $request->precio,
-            'descripcion' => $request->descripcion,
-            'telefono' => $request->telefono,
-            'fechaInicio' => $request->fechaInicio,
-            'fechaFinal' => $request->fechaFinal,
-            'user_id' => $request->user_id,
-            'imagen' => $imagenPath,
-            'estado' => $request->estado ?? 'activo',
-        ]);
-
-        return redirect()->route('publicidad.index')->with('success', 'Publicidad creada correctamente');
     }
 
     public function edit($id)
@@ -116,23 +120,29 @@ class PublicidadController extends Controller
             abort(403, 'No tienes permiso para actualizar esta publicidad.');
         }
 
-        if ($request->hasFile('imagen')) {
-            $imagenPath = $request->file('imagen')->store('publicidades', 'public');
-            $publicidad->imagen = $imagenPath;
+        try {
+            // Manejo de la imagen
+            if ($request->hasFile('imagen')) {
+                $imagenPath = $request->file('imagen')->store('publicidades', 'public');
+                $publicidad->imagen = $imagenPath;
+            }
+
+            // Actualizar publicidad
+            $publicidad->update([
+                'nombre' => $request->nombre,
+                'precio' => $request->precio,
+                'descripcion' => $request->descripcion,
+                'telefono' => $request->telefono,
+                'fechaInicio' => $request->fechaInicio,
+                'fechaFinal' => $request->fechaFinal,
+                'user_id' => $request->user_id,
+                'estado' => $request->estado,
+            ]);
+
+            return redirect()->route('publicidad.index')->with('success', 'Publicidad actualizada exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('publicidad.index')->with('error', 'Hubo un problema al actualizar la publicidad');
         }
-
-        $publicidad->update([
-            'nombre' => $request->nombre,
-            'precio' => $request->precio,
-            'descripcion' => $request->descripcion,
-            'telefono' => $request->telefono,
-            'fechaInicio' => $request->fechaInicio,
-            'fechaFinal' => $request->fechaFinal,
-            'user_id' => $request->user_id,
-            'estado' => $request->estado,
-        ]);
-
-        return redirect()->route('publicidad.index')->with('success', 'Publicidad actualizada exitosamente.');
     }
 
     public function destroy($id)
@@ -143,13 +153,19 @@ class PublicidadController extends Controller
             abort(403, 'No tienes permiso para eliminar esta publicidad.');
         }
 
-        $publicidad->delete();
-        return redirect()->route('publicidad.index')->with('success', 'Publicidad eliminada exitosamente.');
+        try {
+            $publicidad->delete();
+            return redirect()->route('publicidad.index')->with('success', 'Publicidad eliminada exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('publicidad.index')->with('error', 'Hubo un problema al eliminar la publicidad');
+        }
     }
 
     public function mostrarPublicidad()
     {
+        // Solo selecciona las publicidades que están activas
         $publicidad = Publicidad::where('estado', 'activo')->paginate(8);
         return view('vet', compact('publicidad'));
     }
+    
 }

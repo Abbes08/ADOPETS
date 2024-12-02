@@ -37,10 +37,10 @@
                     </select>
                 </div>
 
-                <!-- Botones de acción -->
-                <div class="text-center">
-                    <button type="submit" class="btn btn-success" style="border-radius: 5px;">{{ isset($servicio) ? 'Actualizar Servicio' : 'Crear Servicio' }}</button>
-                    <a href="{{ route('servicio.index') }}" class="btn btn-secondary" style="border-radius: 5px;">Volver</a>
+                <!-- Botones Guardar y Volver -->
+                <div class="text-right">
+                    <button type="submit" class="btn btn-success" style="border-radius: 20px; padding: 10px 20px;">{{ isset($servicio) ? 'Actualizar Servicio' : 'Crear Servicio' }}</button>
+                    <a href="{{ route('servicio.index') }}" class="btn btn-secondary" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
                 </div>
             </form>
         </div>

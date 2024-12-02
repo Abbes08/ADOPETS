@@ -51,15 +51,25 @@ class LoginController extends Controller
         throw \Illuminate\Validation\ValidationException::withMessages($errors);
     }
     protected function authenticated(Request $request, $user)
-{
-    if (!$user->is_active) {
-        Auth::logout();
-
-        return redirect()->route('login')->withErrors([
-            'email' => 'Tu cuenta debe ser aprobada por el administrador antes de iniciar sesión.',
-        ]);
+    {
+        if ($user->role === 'premium' && !$user->is_active) {
+            \Auth::logout(); // Deslogea al usuario
+    
+            // Guardar el mensaje en la sesión de forma persistente
+            session()->put('premium_alert', 'Para acceder al sistema como usuario premium, debe realizar el pago de la membresía. Por favor, póngase en contacto con el administrador.');
+            session()->put('whatsapp_url', 'https://wa.me/86853430?text=Hola, necesito ayuda para activar mi cuenta premium en el sistema.');
+    
+            return redirect()->route('login');
+        }
     }
-}
+    
+
+    
+    
+
+
+
+    
 protected function redirectTo()
 {
     return '/home'; // Cambia esto a una ruta existente, como '/home' o '/perfil'.

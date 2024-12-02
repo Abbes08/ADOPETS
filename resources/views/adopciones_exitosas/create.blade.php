@@ -14,16 +14,17 @@
                 <form action="{{ route('adopciones_exitosas.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
-                    <!-- Selección de Mascota -->
-                    <div class="form-group">
-                        <label for="mascota_id">Seleccione una Mascota</label>
-                        <select name="mascota_id" class="form-control" required>
-                            <option value="">Seleccione una mascota</option>
-                            @foreach ($mascotas as $mascota)
-                                <option value="{{ $mascota->mascota_id }}">{{ $mascota->nombre }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                   <!-- Selección de Mascota -->
+<div class="form-group">
+    <label for="mascota_id">Seleccione una Mascota</label>
+    <select name="mascota_id" class="form-control" required>
+        <option value="">Seleccione una mascota</option>
+        @foreach ($mascotas as $mascota)
+            <option value="{{ $mascota->mascota_id }}">{{ $mascota->nombre }}</option>
+        @endforeach
+    </select>
+</div>
+
 
                     <!-- Reseña -->
                     <div class="form-group">

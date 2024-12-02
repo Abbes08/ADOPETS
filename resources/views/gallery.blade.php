@@ -134,8 +134,10 @@
             <!-- Añade la clase 'recent-pet' si la mascota es reciente -->
             <div class="staff {{ $mascota->is_recent ? 'recent-pet' : '' }}">
                 <div class="img-wrap d-flex align-items-stretch position-relative">
-                    <div class="img align-self-stretch" style="background-image: url('{{ asset('storage/' . $mascota->fotos[0]) }}'); position: relative;">
-                        <a href="{{ asset('storage/' . $mascota->fotos[0]) }}" class="icon image-popup d-flex justify-content-center align-items-center icon-expand">
+                    <div class="img align-self-stretch" 
+                         style="background-image: url('{{ isset($mascota->fotos[0]) ? asset('storage/' . $mascota->fotos[0]) : asset('images/default-image.jpg') }}'); position: relative;">
+                        <a href="{{ isset($mascota->fotos[0]) ? asset('storage/' . $mascota->fotos[0]) : '#' }}" 
+                           class="icon image-popup d-flex justify-content-center align-items-center icon-expand">
                             <span class="fa fa-expand"></span>
                         </a>
                     </div>
@@ -160,15 +162,16 @@
 </div>
 
 
-        <!-- Paginación -->
-        <div class="row">
-            <div class="col text-center">
-                <nav aria-label="Page navigation">
-                    {{ $mascotas->links('pagination::bootstrap-4') }}
-                </nav>
-            </div>
-        </div>
+
+<!-- Paginación -->
+<div class="row">
+    <div class="col text-center">
+        {{ $mascotas->links('pagination::bootstrap-4') }}
     </div>
+</div>
+
+
+       
 </section>
 
   

@@ -4,11 +4,11 @@
 
 @section('content')
 <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
-    <div class="container" style="max-width: 80%;">
+    <div class="container" style="max-width: 95%;"> <!-- Ajuste en el max-width para mayor amplitud -->
         <div class="row">
             <!-- Contenedor de datos de la mascota -->
-            <div class="col-md-6">
-                <div class="card shadow" style="border-radius: 15px; overflow-y: auto; max-height: 80vh;">
+            <div class="col-lg-6 col-md-12"> <!-- Se ajusta para pantalla completa en dispositivos más pequeños -->
+                <div class="card shadow" style="border-radius: 15px; overflow-y: auto; max-height: 90vh;"> <!-- Aumento en max-height para más espacio -->
                     <div class="card-header text-center" style="background: linear-gradient(90deg, #a8e063, #56ab2f); color: white; border-top-left-radius: 15px; border-top-right-radius: 15px;">
                         <h4>Información de la Mascota</h4>
                     </div>
@@ -30,8 +30,8 @@
             </div>
 
             <!-- Contenedor de galería de fotos -->
-            <div class="col-md-6">
-                <div class="card shadow" style="border-radius: 15px; overflow-y: auto; max-height: 80vh;">
+            <div class="col-lg-6 col-md-12"> <!-- Se ajusta para pantalla completa en dispositivos más pequeños -->
+                <div class="card shadow" style="border-radius: 15px; overflow-y: auto; max-height: 90vh;"> <!-- Aumento en max-height para más espacio -->
                     <div class="card-header text-center" style="background: linear-gradient(90deg, #a8e063, #56ab2f); color: white; border-top-left-radius: 15px; border-top-right-radius: 15px;">
                         <h4>Galería de Fotos</h4>
                     </div>
@@ -53,11 +53,12 @@
         </div>
 
         <!-- Botón para adoptar o comprar redireccionando a WhatsApp -->
-        <a href="https://wa.me/{{ preg_replace('/\D/', '', $mascota->telefono) }}?text=Estoy%20interesado%20en%20{{ $mascota->es_venta ? 'comprar' : 'adoptar' }}%20a%20{{ $mascota->nombre }}" target="_blank" class="btn btn-primary mt-3" style="border-radius: 20px; padding: 10px 20px;">
-            {{ $mascota->es_venta ? 'Comprar Mascota' : 'Adoptar Mascota' }}
-        </a>
-
-        <a href="{{ route('mascotas.index') }}" class="btn btn-secondary mt-3" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
+        <div class="text-center mt-4"> <!-- Centrado de botones y espacio adicional -->
+            <a href="https://wa.me/{{ preg_replace('/\D/', '', $mascota->telefono) }}?text=Estoy%20interesado%20en%20{{ $mascota->es_venta ? 'comprar' : 'adoptar' }}%20a%20{{ $mascota->nombre }}" target="_blank" class="btn btn-primary mt-3" style="border-radius: 20px; padding: 10px 25px;">
+                {{ $mascota->es_venta ? 'Comprar Mascota' : 'Adoptar Mascota' }}
+            </a>
+            <a href="{{ route('mascotas.index') }}" class="btn btn-secondary mt-3" style="border-radius: 20px; padding: 10px 25px;">Volver</a>
+        </div>
     </div>
 </div>
 @endsection

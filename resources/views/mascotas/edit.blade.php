@@ -94,7 +94,15 @@
                             </div>
                         </div>
                     @endif
-
+                    @if(auth()->user()->email === 'adminadopets@gmail.com')
+    <div class="form-group">
+        <label for="activo">Estado</label>
+        <select name="activo" class="form-control">
+            <option value="1" {{ old('activo', 1) == 1 ? 'selected' : '' }}>Activo</option>
+            <option value="0" {{ old('activo', 1) == 0 ? 'selected' : '' }}>Inactivo</option>
+        </select>
+    </div>
+@endif
                     <!-- Subir nuevas imágenes -->
                     <div class="form-group mb-3">
                         <label for="fotos">Subir nuevas imágenes</label>

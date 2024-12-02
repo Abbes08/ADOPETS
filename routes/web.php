@@ -149,3 +149,8 @@ Route::get('/mascotas/{mascota}', [MascotaController::class, 'show'])->name('mas
 Route::get('/services', [ServicioController::class, 'showServicios'])->name('services');
 
 
+//lenguajes
+Route::get('lang/{lang}', function ($lang) {
+    session(['locale' => $lang]);
+    return redirect()->back();
+})->name('lang');

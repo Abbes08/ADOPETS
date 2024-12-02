@@ -14,6 +14,9 @@
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
 
                 <!-- Botón Nueva Adopción y campo de búsqueda -->
                 <div class="d-flex justify-content-between mb-3">
@@ -46,20 +49,20 @@
                                     <td>{{ $adopcion->mascota->nombre }}</td>
                                     <td>{{ $adopcion->reseña }}</td>
                                     <td>{{ $adopcion->fecha_reseña->format('d-m-Y') }}</td>
-                                    <td>{{ $adopcion->estado ? 'Activo' : 'Inactivo' }}</td>
                                     <td>
-                                        <a href="{{ route('adopciones_exitosas.show', $adopcion->adop_id) }}" class="btn btn-info">Ver</a>
-                                        <a href="{{ route('adopciones_exitosas.edit', $adopcion->adop_id) }}" class="btn btn-primary">Editar</a>
-                                        <form action="{{ route('adopciones_exitosas.destroy', $adopcion->adop_id) }}" method="POST" style="display:inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                        </form>
+                                        <span class="badge badge-{{ $adopcion->estado ? 'success' : 'secondary' }}">
+                                            {{ $adopcion->estado ? 'Activo' : 'Inactivo' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('adopciones_exitosas.show', $adopcion->adop_id) }}" class="btn btn-info btn-sm" style="border-radius: 5px;">Ver</a>
+                                        <a href="{{ route('adopciones_exitosas.edit', $adopcion->adop_id) }}" class="btn btn-primary btn-sm" style="border-radius: 5px;">Editar</a>
+                                        <button class="btn btn-danger btn-sm" style="border-radius: 5px;" onclick="confirmDelete('{{ route('adopciones_exitosas.destroy', $adopcion->adop_id) }}')">Eliminar</button>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center">No hay adopciones registradas en este momento.</td>
+                                    <td colspan="5" class="text-center">No hay adopciones exitosas registradas en este momento.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -70,6 +73,7 @@
     </div>
 </div>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -88,15 +92,11 @@
                                     <td>${adopcion.mascota ? adopcion.mascota.nombre : ''}</td>
                                     <td>${adopcion.reseña}</td>
                                     <td>${new Date(adopcion.fecha_reseña).toLocaleDateString()}</td>
-                                    <td>${adopcion.estado ? 'Activo' : 'Inactivo'}</td>
+                                    <td><span class="badge badge-${adopcion.estado ? 'success' : 'secondary'}">${adopcion.estado ? 'Activo' : 'Inactivo'}</span></td>
                                     <td>
                                         <a href="/adopciones_exitosas/${adopcion.adop_id}" class="btn btn-info btn-sm">Ver</a>
                                         <a href="/adopciones_exitosas/${adopcion.adop_id}/edit" class="btn btn-primary btn-sm">Editar</a>
-                                        <form action="/adopciones_exitosas/${adopcion.adop_id}" method="POST" style="display:inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                        </form>
+                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete('/adopciones_exitosas/${adopcion.adop_id}')">Eliminar</button>
                                     </td>
                                 </tr>`;
                         });
@@ -108,5 +108,28 @@
             });
         });
     });
+
+    // Confirmación de eliminación con SweetAlert
+    function confirmDelete(url) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let form = document.createElement('form');
+                form.action = url;
+                form.method = 'POST';
+                form.innerHTML = '@csrf @method("DELETE")';
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
 </script>
-@endsection
+@stop

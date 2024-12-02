@@ -119,17 +119,18 @@
                         </div>
                     </div>
 
-                    <!-- Estado -->
                     <div class="form-group">
-                        <label for="estado">Estado</label>
-                        <select class="form-control @error('estado') is-invalid @enderror" id="estado" name="estado" required>
-                            <option value="activo" {{ old('estado') == 'activo' ? 'selected' : '' }}>Activo</option>
-                            <option value="inactivo" {{ old('estado') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-                        </select>
-                        @error('estado')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+    <label for="estado">Estado</label>
+    <select class="form-control @error('estado') is-invalid @enderror" id="estado" name="estado" required>
+        <option value="activo" {{ old('estado', isset($publicidad) ? $publicidad->estado : '') == 'activo' ? 'selected' : '' }}>Activo</option>
+        <option value="inactivo" {{ old('estado', isset($publicidad) ? $publicidad->estado : '') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
+    </select>
+    @error('estado')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+
 
                     <!-- Botón de envío -->
                     <div class="text-center mt-4">

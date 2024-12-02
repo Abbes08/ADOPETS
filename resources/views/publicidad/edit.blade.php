@@ -108,19 +108,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="estado">Estado</label>
-                        <select class="form-control @error('estado') is-invalid @enderror" id="estado" name="estado" required>
-                            <option value="activo" {{ old('estado', $publicidad->estado) == 'activo' ? 'selected' : '' }}>Activo</option>
-                            <option value="inactivo" {{ old('estado', $publicidad->estado) == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-                        </select>
-                        @error('estado')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+    <label for="estado">Estado</label>
+    <select class="form-control @error('estado') is-invalid @enderror" id="estado" name="estado" required>
+        <option value="activo" {{ old('estado', isset($publicidad) ? $publicidad->estado : '') == 'activo' ? 'selected' : '' }}>Activo</option>
+        <option value="inactivo" {{ old('estado', isset($publicidad) ? $publicidad->estado : '') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
+    </select>
+    @error('estado')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
 
                     <div class="d-flex justify-content-end mt-4">
                         <button type="submit" class="btn btn-success mr-2" style="border-radius: 20px; padding: 10px 20px;">Actualizar Publicidad</button>
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary" style="border-radius: 20px; padding: 10px 20px;">Volver</a>
+                        
                     </div>
                 </form>
             </div>
